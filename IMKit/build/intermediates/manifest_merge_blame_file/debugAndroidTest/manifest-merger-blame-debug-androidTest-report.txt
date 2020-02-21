@@ -1,0 +1,338 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.rong.imkit.test" >
+4
+5    <uses-sdk
+5-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:5:5-74
+6        android:minSdkVersion="16"
+6-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:5:15-41
+7        android:targetSdkVersion="23" />
+7-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:5:42-71
+8
+9    <instrumentation
+9-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:11:5-15:68
+10        android:name="android.test.InstrumentationTestRunner"
+10-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:11:22-75
+11        android:functionalTest="false"
+11-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:14:22-52
+12        android:handleProfiling="false"
+12-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:13:22-53
+13        android:label="Tests for io.rong.imkit.test"
+13-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:15:22-66
+14        android:targetPackage="io.rong.imkit.test" />
+14-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:12:22-64
+15    <!-- 访问相册，访问文件系统等 -->
+16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 发送位置消息，实时位置共享，如果您需要定位相关的功能，可以打开以下注释 -->
+16-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-80
+16-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:22-77
+17    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+18    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
+19    <!-- 拍照 -->
+20    <uses-permission android:name="android.permission.CAMERA" /> <!-- 拍照等 -->
+20-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-65
+20-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:22-62
+21    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- 网络 -->
+21-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:5-73
+21-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:22-70
+22    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+22-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:5-76
+22-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:22-73
+23    <uses-permission android:name="android.permission.INTERNET" />
+23-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:5-67
+23-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:22-64
+24    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+24-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:5-79
+24-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:22-76
+25    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 录音 -->
+25-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:5-76
+25-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:22-73
+26    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 使用ActivityManager需要 -->
+26-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:5-71
+26-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:22-68
+27    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 适配 Android 8.0 -->
+27-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:5-68
+27-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:22-65
+28    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 保存图片，拍照等 -->
+28-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:5-83
+28-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:22-80
+29    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 新消息震动提醒 -->
+29-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:32:5-81
+29-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:32:22-78
+30    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 消息通道保活 -->
+30-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:5-66
+30-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:22-63
+31    <uses-permission android:name="android.permission.WAKE_LOCK" />
+31-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-68
+31-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:22-65
+32
+33    <application
+33-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:7:5-9:19
+34        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+34-->[androidx.core:core:1.0.0] /Users/zhangwenxuan/.gradle/caches/transforms-2/files-2.1/246153fc0686d4ff78c8961ca91329b7/core-1.0.0/AndroidManifest.xml:22:18-86
+35        android:debuggable="true" >
+35-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:7:18-43
+36        <uses-library android:name="android.test.runner" />
+36-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:8:9-60
+36-->/Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/tmp/manifest/androidTest/debug/manifestMerger3264184878124257730.xml:8:23-57
+37
+38        <activity
+38-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:9-39:52
+39            android:name="io.rong.imkit.plugin.location.AMapLocationActivity"
+39-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:13-78
+40            android:screenOrientation="portrait" />
+40-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-49
+41        <activity
+41-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:9-42:52
+42            android:name="io.rong.imkit.plugin.location.AMapLocationActivity2D"
+42-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:41:13-80
+43            android:screenOrientation="portrait" />
+43-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:13-49
+44        <activity android:name="io.rong.imkit.plugin.location.AMapPreviewActivity" />
+44-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:9-86
+44-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:19-83
+45        <activity android:name="io.rong.imkit.plugin.location.AMapPreviewActivity2D" />
+45-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:9-88
+45-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:19-85
+46        <activity android:name="io.rong.imkit.plugin.location.AMapRealTimeActivity" />
+46-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:9-87
+46-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:19-84
+47        <activity android:name="io.rong.imkit.plugin.location.AMapRealTimeActivity2D" />
+47-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:46:9-89
+47-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:46:19-86
+48        <activity
+48-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:47:9-50:71
+49            android:name="io.rong.imkit.plugin.location.SearchLocationActivity"
+49-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:48:13-80
+50            android:screenOrientation="portrait"
+50-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:49:13-49
+51            android:windowSoftInputMode="stateVisible|adjustResize" />
+51-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:50:13-68
+52        <activity
+52-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:51:9-54:52
+53            android:name="io.rong.imkit.plugin.image.PictureSelectorActivity"
+53-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:52:13-78
+54            android:configChanges="keyboardHidden|orientation|screenSize"
+54-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:53:13-74
+55            android:screenOrientation="portrait" />
+55-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:54:13-49
+56        <activity
+56-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:55:9-57:52
+57            android:name="io.rong.imkit.plugin.image.PicturePreviewActivity"
+57-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:56:13-77
+58            android:screenOrientation="portrait" /> <!-- 开发者可以修改 RongBaseActivity 的 rc_base_activity_layout 布局文件调整 actionbar -->
+58-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:57:13-49
+59        <activity
+59-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:60:9-69:20
+60            android:name="io.rong.imkit.tools.RongWebviewActivity"
+60-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:61:13-67
+61            android:exported="false"
+61-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:62:13-37
+62            android:screenOrientation="portrait" >
+62-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:63:13-49
+63            <intent-filter>
+63-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:64:13-68:29
+64                <action android:name="io.rong.imkit.intent.action.webview" />
+64-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:65:17-78
+64-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:65:25-75
+65
+66                <category android:name="android.intent.category.DEFAULT" />
+66-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:17-76
+66-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:27-73
+67            </intent-filter>
+68        </activity>
+69        <activity
+69-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:70:9-79:20
+70            android:name="io.rong.imkit.tools.CombineWebViewActivity"
+70-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:71:13-70
+71            android:exported="false"
+71-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:72:13-37
+72            android:screenOrientation="portrait" >
+72-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:73:13-49
+73            <intent-filter>
+73-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:74:13-78:29
+74                <action android:name="io.rong.imkit.intent.action.combinewebview" />
+74-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:75:17-85
+74-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:75:25-82
+75
+76                <category android:name="android.intent.category.DEFAULT" />
+76-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:17-76
+76-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:27-73
+77            </intent-filter>
+78        </activity>
+79        <activity
+79-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:80:9-83:52
+80            android:name="io.rong.imkit.widget.provider.TakingPicturesActivity"
+80-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:81:13-80
+81            android:configChanges="orientation|keyboardHidden"
+81-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:82:13-63
+82            android:screenOrientation="portrait" />
+82-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:83:13-49
+83        <activity
+83-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:84:9-93:20
+84            android:name="io.rong.imkit.activity.PicturePagerActivity"
+84-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:85:13-71
+85            android:exported="false"
+85-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:86:13-37
+86            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+86-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:87:13-71
+87            <intent-filter>
+87-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:88:13-92:29
+88                <action android:name="io.rong.imkit.intent.action.picturepagerview" />
+88-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:89:17-87
+88-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:89:25-84
+89
+90                <category android:name="android.intent.category.DEFAULT" />
+90-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:17-76
+90-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:27-73
+91            </intent-filter>
+92        </activity>
+93        <activity
+93-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:94:9-97:67
+94            android:name="io.rong.imkit.mention.MemberMentionedActivity"
+94-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:95:13-73
+95            android:configChanges="orientation|keyboardHidden"
+95-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:96:13-63
+96            android:windowSoftInputMode="adjustPan|stateHidden" />
+96-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:97:13-64
+97        <activity android:name="io.rong.imkit.activity.FileManagerActivity" />
+97-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:98:9-79
+97-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:98:19-76
+98        <activity android:name="io.rong.imkit.activity.FileListActivity" />
+98-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:99:9-76
+98-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:99:19-73
+99        <activity
+99-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:100:9-109:20
+100            android:name="io.rong.imkit.activity.FilePreviewActivity"
+100-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:101:13-70
+101            android:exported="false"
+101-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:102:13-37
+102            android:screenOrientation="portrait" >
+102-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:103:13-49
+103            <intent-filter>
+103-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:104:13-108:29
+104                <action android:name="io.rong.imkit.intent.action.openfile" />
+104-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:105:17-79
+104-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:105:25-76
+105
+106                <category android:name="android.intent.category.DEFAULT" />
+106-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:17-76
+106-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:27-73
+107            </intent-filter>
+108        </activity>
+109        <activity
+109-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:110:9-119:20
+110            android:name="io.rong.imkit.activity.WebFilePreviewActivity"
+110-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:111:13-73
+111            android:exported="false"
+111-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:112:13-37
+112            android:screenOrientation="portrait" >
+112-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:113:13-49
+113            <intent-filter>
+113-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:114:13-118:29
+114                <action android:name="io.rong.imkit.intent.action.openwebfile" />
+114-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:115:17-82
+114-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:115:25-79
+115
+116                <category android:name="android.intent.category.DEFAULT" />
+116-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:17-76
+116-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:27-73
+117            </intent-filter>
+118        </activity>
+119        <activity
+119-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:120:9-123:52
+120            android:name="io.rong.imkit.activity.CSLeaveMessageActivity"
+120-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:121:13-73
+121            android:configChanges="orientation|keyboardHidden"
+121-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:122:13-63
+122            android:screenOrientation="portrait" />
+122-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:123:13-49
+123        <activity
+123-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:124:9-133:20
+124            android:name="io.rong.imkit.activity.GIFPreviewActivity"
+124-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:125:13-69
+125            android:exported="false"
+125-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:126:13-37
+126            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+126-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:127:13-71
+127            <intent-filter>
+127-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:128:13-132:29
+128                <action android:name="io.rong.imkit.intent.action.gifrview" />
+128-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:129:17-79
+128-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:129:25-76
+129
+130                <category android:name="android.intent.category.DEFAULT" />
+130-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:17-76
+130-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:67:27-73
+131            </intent-filter>
+132        </activity>
+133        <activity android:name="io.rong.imkit.activity.SelectConversationActivity" /> <!-- imlib config begin -->
+133-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:134:9-86
+133-->[__tested_artifact__::IMKit] /Users/zhangwenxuan/Downloads/TestApp/IMKit/build/intermediates/library_manifest/debug/AndroidManifest.xml:134:19-83
+134        <meta-data
+134-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:9-27:45
+135            android:name="RONG_CLOUD_APP_KEY"
+135-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:13-46
+136            android:value="pwe86ga5p9vz6" />
+136-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:13-42
+137
+138        <service
+138-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:29:9-31:38
+139            android:name="io.rong.imlib.ipc.RongService"
+139-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:13-57
+140            android:process=":ipc" />
+140-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:13-35
+141
+142        <receiver android:name="io.rong.imlib.ConnectChangeReceiver" />
+142-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:9-72
+142-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:33:19-69
+143        <receiver
+143-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:34:9-36:38
+144            android:name="io.rong.imlib.HeartbeatReceiver"
+144-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:13-59
+145            android:process=":ipc" /> <!-- imlib config end -->
+145-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:13-35
+146        <!-- 必选： SDK 核心功能 -->
+147        <service
+147-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:41:9-45:46
+148            android:name="io.rong.push.rongpush.PushService"
+148-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:13-61
+149            android:exported="true"
+149-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:13-36
+150            android:permission="android.permission.BIND_JOB_SERVICE"
+150-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:13-69
+151            android:process="io.rong.push" /> <!-- push 相关事件接收器 -->
+151-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:45:13-43
+152        <receiver
+152-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:48:9-63:20
+153            android:name="io.rong.push.rongpush.PushReceiver"
+153-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:49:13-62
+154            android:process="io.rong.push" > <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
+154-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:50:13-43
+155            <!-- 心跳事件和网络切换事件监听,必须 -->
+156            <intent-filter>
+156-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:52:13-55:29
+157                <action android:name="io.rong.push.intent.action.HEART_BEAT" />
+157-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:53:17-80
+157-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:53:25-77
+158                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+158-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:54:17-79
+158-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:54:25-76
+159            </intent-filter>
+160
+161            <!-- 部分用户事件监听, 用来提高推送拉活率; 可移除 -->
+162            <intent-filter>
+162-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:58:13-62:29
+163                <action android:name="android.intent.action.USER_PRESENT" />
+163-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:59:17-77
+163-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:59:25-74
+164                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+164-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:60:17-87
+164-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:60:25-84
+165                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+165-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:61:17-90
+165-->[:IMLib] /Users/zhangwenxuan/Downloads/TestApp/IMLib/build/intermediates/library_manifest/debug/AndroidManifest.xml:61:25-87
+166            </intent-filter>
+167        </receiver>
+168    </application>
+169
+170</manifest>

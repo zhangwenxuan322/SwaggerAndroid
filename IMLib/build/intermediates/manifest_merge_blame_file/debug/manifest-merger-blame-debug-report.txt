@@ -1,0 +1,115 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.rong.imlib"
+4    android:versionCode="2020011018"
+5    android:versionName="2.10.3 release" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+8-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml
+9        android:targetSdkVersion="23" />
+9-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml
+10
+11    <!-- 保存图片，拍照等 -->
+12    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+12-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:5:5-81
+12-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:5:22-78
+13    <!-- 网络 -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:7:5-67
+14-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:7:22-64
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:8:5-79
+15-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:8:22-76
+16    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+16-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:9:5-76
+16-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:9:22-73
+17    <!-- 消息通道保活 -->
+18    <uses-permission android:name="android.permission.WAKE_LOCK" />
+18-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:11:5-68
+18-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:11:22-65
+19
+20    <!-- 定位，如果您需要定位相关的功能，可以打开以下注释 -->
+21    <!-- <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> -->
+22    <application>
+22-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:15:5-63:19
+23
+24        <!-- imlib config begin -->
+25        <meta-data
+25-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:18:9-20:45
+26            android:name="RONG_CLOUD_APP_KEY"
+26-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:19:13-46
+27            android:value="pwe86ga5p9vz6" />
+27-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:20:13-42
+28
+29        <service
+29-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:22:9-24:38
+30            android:name="io.rong.imlib.ipc.RongService"
+30-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:23:13-57
+31            android:process=":ipc" />
+31-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:24:13-35
+32
+33        <receiver android:name="io.rong.imlib.ConnectChangeReceiver" />
+33-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:26:9-28:15
+33-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:27:13-63
+34        <receiver
+34-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:30:9-32:38
+35            android:name="io.rong.imlib.HeartbeatReceiver"
+35-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:31:13-59
+36            android:process=":ipc" />
+36-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:32:13-35
+37        <!-- imlib config end -->
+38
+39
+40        <!-- 必选： SDK 核心功能 -->
+41        <service
+41-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:36:9-40:46
+42            android:name="io.rong.push.rongpush.PushService"
+42-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:37:13-61
+43            android:exported="true"
+43-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:38:13-36
+44            android:permission="android.permission.BIND_JOB_SERVICE"
+44-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:39:13-69
+45            android:process="io.rong.push" />
+45-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:40:13-43
+46
+47        <!-- push 相关事件接收器 -->
+48        <receiver
+48-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:43:9-58:20
+49            android:name="io.rong.push.rongpush.PushReceiver"
+49-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:44:13-62
+50            android:process="io.rong.push" > <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
+50-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:45:13-43
+51            <!-- 心跳事件和网络切换事件监听,必须 -->
+52            <intent-filter>
+52-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:47:13-50:29
+53                <action android:name="io.rong.push.intent.action.HEART_BEAT" />
+53-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:48:17-80
+53-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:48:25-77
+54                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+54-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:49:17-79
+54-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:49:25-76
+55            </intent-filter>
+56
+57            <!-- 部分用户事件监听, 用来提高推送拉活率; 可移除 -->
+58            <intent-filter>
+58-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:53:13-57:29
+59                <action android:name="android.intent.action.USER_PRESENT" />
+59-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:54:17-77
+59-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:54:25-74
+60                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+60-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:55:17-87
+60-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:55:25-84
+61                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+61-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:56:17-90
+61-->/Users/zhangwenxuan/Downloads/TestApp/IMLib/AndroidManifest.xml:56:25-87
+62            </intent-filter>
+63        </receiver>
+64
+65        <!-- 必选： SDK 核心功能 -->
+66
+67
+68        <!-- end -->
+69    </application>
+70
+71</manifest>
