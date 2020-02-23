@@ -1,8 +1,10 @@
-package com.friend.swagger;
+package com.friend.swagger.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.friend.swagger.R;
 
 public class ConversationActivity extends AppCompatActivity {
 

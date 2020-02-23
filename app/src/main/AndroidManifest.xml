@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.friend.swagger.ConversationActivity">
+        <activity android:name="com.friend.swagger.activity.ConversationActivity">
             <!-- intent-filter 配置 -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -23,7 +23,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name="com.friend.swagger.MainActivity">
+        <activity android:name="com.friend.swagger.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.friend.swagger;
+package com.friend.swagger.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -11,6 +11,8 @@ import io.rong.imlib.model.Conversation;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+
+import com.friend.swagger.R;
 
 public class MainActivity extends AppCompatActivity {
 
