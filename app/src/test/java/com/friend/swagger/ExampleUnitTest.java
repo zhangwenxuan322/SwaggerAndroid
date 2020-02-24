@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -36,7 +38,7 @@ public class ExampleUnitTest {
                 .readTimeout(10000, TimeUnit.MILLISECONDS)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.baseUrl)
+                .baseUrl(Constant.localUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
@@ -45,15 +47,23 @@ public class ExampleUnitTest {
 
     @Test
     public void getUserByPhoneTest() throws IOException {
-        Call<UserProfile> call = userApi.getUserByPhone("13813968440");
+        Call<UserProfile> call = userApi.getUserByPhone("17327761952");
         Response<UserProfile> response = call.execute();
         System.out.println(response.body());
     }
 
     @Test
     public void getUserBySwaggerIdTest() throws IOException {
-        Call<UserProfile> call = userApi.getUserBySwaggerId("swagger001");
+        Call<UserProfile> call = userApi.getUserBySwaggerId("ckt1998");
         Response<UserProfile> response = call.execute();
+        System.out.println(response.body());
+    }
+
+    @Test
+    public void registerUserTest() throws IOException{
+        UserProfile userProfile = new UserProfile("陈匡婷", "女", "ckt", "", "ckt1998", "xxx.jpg", "happy", null, null, 0, null);
+        Call<Map<String, Object>> call = userApi.registerUser(userProfile);
+        Response<Map<String, Object>> response = call.execute();
         System.out.println(response.body());
     }
 }
