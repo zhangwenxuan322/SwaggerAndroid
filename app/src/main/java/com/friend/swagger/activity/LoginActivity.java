@@ -1,6 +1,7 @@
 package com.friend.swagger.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.MotionEvent;
@@ -20,9 +21,11 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        // 隐藏menu
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        // 按钮点击事件初始化
         initButtonAction();
     }
 
@@ -59,7 +62,9 @@ public class LoginActivity extends AppCompatActivity {
         goRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "前往注册", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
