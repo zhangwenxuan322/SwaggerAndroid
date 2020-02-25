@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Swagger</string>
-    <string name="title_activity_login">登录</string>
     <string name="prompt_username">手机号/SwaggerId</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登录</string>
@@ -13,4 +12,9 @@
     <string name="go_register">还没有账户？前往注册</string>
     <string name="forget_password">忘记密码</string>
     <string name="register_title">注册</string>
+    <string name="register_username">昵称（1-20个字符）</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="phone">手机号</string>
+    <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
 </resources>

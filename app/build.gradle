@@ -46,4 +46,16 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 
     implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
+
+    //基础工具库
+    implementation 'com.github.tamsiree.RxTool:RxKit:2.4.3'
+    //UI库
+    implementation 'com.github.tamsiree.RxTool:RxUI:2.4.3'
+    //相机库
+    implementation 'com.github.tamsiree.RxTool:RxCamera:v2.4.3'
+    //功能库（Zxing扫描与生成二维码条形码 支付宝 微信）
+    implementation 'com.github.tamsiree.RxTool:RxFeature:v2.4.3'
+    //ArcGis For Android工具库（API：100.1以上版本）
+    implementation 'com.github.tamsiree.RxTool:RxArcGisKit:v2.4.3'
+    implementation 'com.github.yalantis:ucrop:2.2.4-native'
 }
