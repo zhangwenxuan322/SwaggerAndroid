@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="@string/register_title"
+        android:text="@string/app_name"
         android:textColor="@color/colorPrimary"
         android:textSize="50sp"
         android:typeface="serif"
@@ -108,5 +108,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/register_sex" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="64dp"
+        android:background="@color/colorPrimary"
+        android:enabled="true"
+        android:text="@string/register_title"
+        android:textColor="@color/colorFlashWhite"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_password"
+        app:layout_constraintVertical_bias="0.2" />
+
+    <Button
+        android:id="@+id/go_login"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="@string/go_login"
+        android:textColor="@color/colorBlue"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

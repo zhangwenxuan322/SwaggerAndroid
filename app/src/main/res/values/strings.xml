@@ -10,6 +10,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="ver_code_login">手机验证码登录</string>
     <string name="go_register">还没有账户？前往注册</string>
+    <string name="go_login">已有账户，前往登录</string>
     <string name="forget_password">忘记密码</string>
     <string name="register_title">注册</string>
     <string name="register_username">昵称（1-20个字符）</string>
