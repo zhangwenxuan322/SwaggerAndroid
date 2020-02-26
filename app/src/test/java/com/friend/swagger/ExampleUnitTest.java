@@ -1,8 +1,10 @@
 package com.friend.swagger;
 
 import com.friend.swagger.api.UserApi;
+import com.friend.swagger.api.VerCodeApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.UserProfile;
+import com.friend.swagger.entity.VerCode;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,21 +30,23 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     private UserApi userApi;
+    private VerCodeApi verCodeApi;
     @Before
     public void retrofit_build() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
-                .connectTimeout(10000, TimeUnit.MICROSECONDS)
-                .readTimeout(10000, TimeUnit.MILLISECONDS)
+                .connectTimeout(50000, TimeUnit.MICROSECONDS)
+                .readTimeout(50000, TimeUnit.MILLISECONDS)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.localUrl)
+                .baseUrl(Constant.remoteUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();
         userApi = retrofit.create(UserApi.class);
+        verCodeApi = retrofit.create(VerCodeApi.class);
     }
 
     @Test
@@ -64,6 +68,13 @@ public class ExampleUnitTest {
         UserProfile userProfile = new UserProfile("陈匡婷", "女", "ckt", "", "ckt1998", "xxx.jpg", "happy", null, null, 0, null);
         Call<Map<String, Object>> call = userApi.registerUser(userProfile);
         Response<Map<String, Object>> response = call.execute();
+        System.out.println(response.body());
+    }
+
+    @Test
+    public void postCodeTest() throws IOException{
+        Call<VerCode> call = verCodeApi.getCode("13813968440");
+        Response<VerCode> response = call.execute();
         System.out.println(response.body());
     }
 }

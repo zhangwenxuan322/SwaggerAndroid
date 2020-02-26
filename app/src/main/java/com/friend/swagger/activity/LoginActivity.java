@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.CallSuper;
 import androidx.appcompat.app.AppCompatActivity;
 import com.friend.swagger.R;
+import com.tamsiree.rxtool.RxPermissionsTool;
 
 public class LoginActivity extends AppCompatActivity {
 
