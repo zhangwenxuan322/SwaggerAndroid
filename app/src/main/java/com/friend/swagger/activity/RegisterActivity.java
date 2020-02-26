@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -33,6 +34,29 @@ public class RegisterActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
         initProtraitSelector();
+        initButtonActions();
+    }
+
+    /**
+     * 初始化按钮点击事件
+     */
+    private void initButtonActions() {
+        Button registerBtn = findViewById(R.id.register);
+        Button goLoginBtn = findViewById(R.id.go_login);
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        goLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     /**

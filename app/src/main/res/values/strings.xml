@@ -9,6 +9,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="ver_code_login">手机验证码登录</string>
+    <string name="password_login">账号密码登录</string>
     <string name="go_register">还没有账户？前往注册</string>
     <string name="go_login">已有账户，前往登录</string>
     <string name="forget_password">忘记密码</string>
@@ -17,5 +18,6 @@
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="phone">手机号</string>
+    <string name="ver_code">验证码</string>
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
 </resources>
