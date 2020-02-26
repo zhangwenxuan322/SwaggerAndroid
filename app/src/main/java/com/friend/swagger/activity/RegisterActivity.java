@@ -52,11 +52,19 @@ public class RegisterActivity extends AppCompatActivity {
         goLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                toActivity(LoginActivity.class);
             }
         });
+    }
+
+    /**
+     * 跳转到指定页面
+     * @param cls
+     */
+    private void toActivity(Class<?> cls) {
+        Intent intent = new Intent(RegisterActivity.this, cls);
+        startActivity(intent);
+        finish();
     }
 
     /**

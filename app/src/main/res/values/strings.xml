@@ -2,6 +2,8 @@
     <string name="app_name">Swagger</string>
     <string name="prompt_username">手机号/SwaggerId</string>
     <string name="prompt_password">密码</string>
+    <string name="reset_password">新的密码</string>
+    <string name="confirm_password">确认密码</string>
     <string name="action_sign_in">登录</string>
     <string name="action_sign_in_short">登录</string>
     <string name="welcome">"欢迎!"</string>
@@ -13,6 +15,7 @@
     <string name="go_register">还没有账户？前往注册</string>
     <string name="go_login">已有账户，前往登录</string>
     <string name="forget_password">忘记密码</string>
+    <string name="get_ver_code">获取验证码</string>
     <string name="register_title">注册</string>
     <string name="register_username">昵称（1-20个字符）</string>
     <string name="male">男</string>

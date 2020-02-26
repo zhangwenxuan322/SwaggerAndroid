@@ -38,6 +38,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/banner" />
 
+    <Button
+        android:id="@+id/get_ver_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:text="@string/get_ver_code"
+        android:background="@color/colorNone"
+        android:textColor="@color/colorBlue"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="@+id/login_phone"
+        app:layout_constraintTop_toTopOf="@+id/login_phone"/>
+
     <EditText
         android:id="@+id/login_ver_code"
         android:layout_width="0dp"
@@ -46,11 +58,29 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/ver_code"
+        android:maxLength="6"
         android:inputType="number"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_phone" />
+
+    <TextView
+        android:id="@+id/ver_code"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="200dp"
+        android:background="@color/colorNone"
+        android:gravity="center_vertical|start"
+        android:padding="5dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_ver_code" />
 
     <Button
         android:id="@+id/password_login"

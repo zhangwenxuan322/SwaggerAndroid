@@ -1,5 +1,8 @@
 package com.friend.swagger.activity;
 
+import androidx.annotation.CallSuper;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,60 +12,60 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import androidx.annotation.CallSuper;
-import androidx.appcompat.app.AppCompatActivity;
 import com.friend.swagger.R;
 
-public class LoginActivity extends AppCompatActivity {
-
+public class ForgetPasswordActivity extends AppCompatActivity {
+    // 手机号输入框
+    EditText phoneText;
+    // 验证码输入框
+    EditText verCodeText;
+    // 新的密码输入框
+    EditText resetPwdText;
+    // 确认密码输入框
+    EditText confirmPwdText;
+    // 验证码
+    TextView verCode;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_forget_password);
         // 隐藏menu
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
-        // 按钮点击事件初始化
-        initButtonAction();
+        phoneText = findViewById(R.id.forget_phone);
+        verCodeText = findViewById(R.id.forget_ver_code);
+        resetPwdText = findViewById(R.id.reset_password);
+        confirmPwdText = findViewById(R.id.confirm_password);
+        verCode = findViewById(R.id.ver_code);
+        initButtonActions();
     }
 
     /**
-     * 按钮点击事件初始化
+     * 初始化按钮点击事件
      */
-    private void initButtonAction() {
-        Button loginBtn = findViewById(R.id.login);
-        Button forgetPwdBtn = findViewById(R.id.forget_password);
-        Button verCodeLoginBtn = findViewById(R.id.ver_code_login);
-        Button goRegisterBtn = findViewById(R.id.go_register);
-        // 登录
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+    private void initButtonActions() {
+        Button getVerCodeBtn = findViewById(R.id.get_ver_code);
+        Button confirmBtn = findViewById(R.id.confirm);
+        Button goLoginBtn = findViewById(R.id.go_login);
+        getVerCodeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "登录", Toast.LENGTH_LONG).show();
+
             }
         });
-        // 忘记密码
-        forgetPwdBtn.setOnClickListener(new View.OnClickListener() {
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toActivity(ForgetPasswordActivity.class);
+
             }
         });
-        // 手机验证码登录
-        verCodeLoginBtn.setOnClickListener(new View.OnClickListener() {
+        goLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toActivity(VerCodeLoginActivity.class);
-            }
-        });
-        // 前往注册
-        goRegisterBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toActivity(RegisterActivity.class);
+                toActivity(LoginActivity.class);
             }
         });
     }
@@ -72,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param cls
      */
     private void toActivity(Class<?> cls) {
-        Intent intent = new Intent(LoginActivity.this, cls);
+        Intent intent = new Intent(ForgetPasswordActivity.this, cls);
         startActivity(intent);
         finish();
     }

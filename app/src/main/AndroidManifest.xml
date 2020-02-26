@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.VerCodeLoginActivity"></activity>
+        <activity android:name=".activity.ForgetPasswordActivity"></activity>
+        <activity android:name=".activity.VerCodeLoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.LoginActivity">
             <intent-filter>

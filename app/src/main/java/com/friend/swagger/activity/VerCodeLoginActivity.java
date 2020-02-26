@@ -12,11 +12,17 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.friend.swagger.R;
 
 public class VerCodeLoginActivity extends AppCompatActivity {
-
+    // 手机号输入框
+    EditText phoneText;
+    // 验证码输入框
+    EditText verCodeText;
+    // 验证码
+    TextView verCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +31,9 @@ public class VerCodeLoginActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
+        phoneText = findViewById(R.id.login_phone);
+        verCodeText = findViewById(R.id.login_ver_code);
+        verCode = findViewById(R.id.ver_code);
         initButtonActions();
     }
 
@@ -32,15 +41,20 @@ public class VerCodeLoginActivity extends AppCompatActivity {
      * 初始化按钮点击事件
      */
     private void initButtonActions() {
+        Button getVerCodeBtn = findViewById(R.id.get_ver_code);
         Button passwordLoginBtn = findViewById(R.id.password_login);
         Button verCodeLoginBtn = findViewById(R.id.login_with_ver_code);
         Button goRegister = findViewById(R.id.go_register_at_ver_code);
+        getVerCodeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         passwordLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerCodeLoginActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
+                toActivity(LoginActivity.class);
             }
         });
         verCodeLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -52,11 +66,19 @@ public class VerCodeLoginActivity extends AppCompatActivity {
         goRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(VerCodeLoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-                finish();
+                toActivity(RegisterActivity.class);
             }
         });
+    }
+
+    /**
+     * 跳转到指定页面
+     * @param cls
+     */
+    private void toActivity(Class<?> cls) {
+        Intent intent = new Intent(VerCodeLoginActivity.this, cls);
+        startActivity(intent);
+        finish();
     }
 
     /**
