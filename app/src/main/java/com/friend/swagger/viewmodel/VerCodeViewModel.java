@@ -2,6 +2,8 @@ package com.friend.swagger.viewmodel;
 
 import com.friend.swagger.entity.VerCode;
 import com.friend.swagger.repository.VerCodeRepository;
+
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 /**
@@ -10,21 +12,14 @@ import androidx.lifecycle.ViewModel;
  **/
 public class VerCodeViewModel extends ViewModel {
     private VerCodeRepository verCodeRepository;
-    private VerCode verCode;
+    private LiveData<VerCode> verCode;
     public void init(){
         verCodeRepository = VerCodeRepository.getInstance();
     }
 
-    public VerCode getVerCode() {
+    public LiveData<VerCode> getVerCode(String phone) {
+        verCodeRepository.getCode(phone);
         verCode = verCodeRepository.getVerCode();
         return verCode;
-    }
-
-    /**
-     * 请求验证码
-     * @param phone
-     */
-    public void postVerCode(String phone) {
-        verCodeRepository.postCode(phone);
     }
 }

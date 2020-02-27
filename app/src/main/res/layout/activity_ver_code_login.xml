@@ -32,6 +32,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/phone"
+        android:maxLength="11"
         android:inputType="phone"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,8 +45,9 @@
         android:layout_height="wrap_content"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:text="@string/get_ver_code"
+        android:enabled="false"
         android:background="@color/colorNone"
-        android:textColor="@color/colorBlue"
+        android:textColor="@color/gray"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="@+id/login_phone"
         app:layout_constraintTop_toTopOf="@+id/login_phone"/>
