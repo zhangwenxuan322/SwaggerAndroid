@@ -2,31 +2,49 @@ package com.friend.swagger.activity;
 
 import androidx.annotation.CallSuper;
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.friend.swagger.R;
+import com.friend.swagger.api.RetrofitService;
+import com.friend.swagger.api.VerCodeApi;
+import com.friend.swagger.common.PhoneUtil;
+import com.friend.swagger.entity.VerCode;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
     // 手机号输入框
-    EditText phoneText;
+    private EditText phoneText;
     // 验证码输入框
-    EditText verCodeText;
+    private EditText verCodeText;
     // 新的密码输入框
-    EditText resetPwdText;
+    private EditText resetPwdText;
     // 确认密码输入框
-    EditText confirmPwdText;
+    private EditText confirmPwdText;
     // 验证码
-    TextView verCode;
+    private TextView verCodeDisplay;
+    // 获取验证码按钮
+    private Button getVerCodeBtn;
+    // 验证码值
+    private VerCode verCodeValue;
+    // api
+    private VerCodeApi verCodeApi;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,21 +57,77 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         verCodeText = findViewById(R.id.forget_ver_code);
         resetPwdText = findViewById(R.id.reset_password);
         confirmPwdText = findViewById(R.id.confirm_password);
-        verCode = findViewById(R.id.ver_code);
+        verCodeDisplay = findViewById(R.id.ver_code);
+        verCodeApi = RetrofitService.cteateService(VerCodeApi.class);
         initButtonActions();
+        initEditListeners();
+    }
+
+    /**
+     * 监听输入框
+     */
+    private void initEditListeners() {
+        phoneText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (PhoneUtil.isMobileNO(phoneText.getText().toString()) && getVerCodeBtn.getText().equals("获取验证码")) {
+                    getVerCodeBtn.setEnabled(true);
+                    getVerCodeBtn.setTextColor(getColor(R.color.colorBlue));
+                } else {
+                    getVerCodeBtn.setEnabled(false);
+                    getVerCodeBtn.setTextColor(getColor(R.color.gray));
+                }
+            }
+        });
     }
 
     /**
      * 初始化按钮点击事件
      */
     private void initButtonActions() {
-        Button getVerCodeBtn = findViewById(R.id.get_ver_code);
+        getVerCodeBtn = findViewById(R.id.get_ver_code);
         Button confirmBtn = findViewById(R.id.confirm);
         Button goLoginBtn = findViewById(R.id.go_login);
         getVerCodeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CountDownTimer timer = new CountDownTimer(60000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        getVerCodeBtn.setClickable(false);
+                        getVerCodeBtn.setEnabled(false);
+                        getVerCodeBtn.setTextColor(getColor(R.color.gray));
+                        getVerCodeBtn.setText("已发送(" + millisUntilFinished / 1000 + ")");
+                    }
 
+                    @Override
+                    public void onFinish() {
+                        getVerCodeBtn.setEnabled(true);
+                        getVerCodeBtn.setTextColor(getColor(R.color.colorBlue));
+                        getVerCodeBtn.setText("获取验证码");
+                    }
+                }.start();
+                String phone = phoneText.getText().toString();
+                verCodeApi.getCode(phone).enqueue(new Callback<VerCode>() {
+                    @Override
+                    public void onResponse(Call<VerCode> call, Response<VerCode> response) {
+                        verCodeDisplay.setText("验证码：" + response.body().getCodeValue());
+                        verCodeValue = response.body();
+                    }
+
+                    @Override
+                    public void onFailure(Call<VerCode> call, Throwable t) {
+                        Toast.makeText(ForgetPasswordActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         confirmBtn.setOnClickListener(new View.OnClickListener() {

@@ -2,27 +2,17 @@ package com.friend.swagger.activity;
 
 import androidx.annotation.CallSuper;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.Formatter;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -34,17 +24,8 @@ import android.widget.Toast;
 import com.friend.swagger.R;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.VerCodeApi;
-import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.entity.VerCode;
-import com.friend.swagger.viewmodel.VerCodeViewModel;
-import com.tamsiree.rxtool.RxPermissionsTool;
-
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
-import java.util.concurrent.TimeUnit;
 
 public class VerCodeLoginActivity extends AppCompatActivity {
     // 手机号输入框
@@ -57,10 +38,8 @@ public class VerCodeLoginActivity extends AppCompatActivity {
     private VerCodeApi verCodeApi;
     // 获取验证码按钮
     private Button getVerCodeBtn;
-    // 手机号值
-    private String phoneValue;
     // 验证码值
-    private String codeValue;
+    private VerCode verCodeValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +115,7 @@ public class VerCodeLoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<VerCode> call, Response<VerCode> response) {
                         verCodeDisplay.setText("验证码：" + response.body().getCodeValue());
-                        codeValue = response.body().getCodeValue();
-                        phoneValue = response.body().getCodePhone();
+                        verCodeValue = response.body();
                     }
 
                     @Override
@@ -158,7 +136,7 @@ public class VerCodeLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String editCode = verCodeText.getText().toString();
                 String editPhone = phoneText.getText().toString();
-                if (editPhone.equals(phoneValue) && editCode.equals(codeValue)) {
+                if (editPhone.equals(verCodeValue.getCodePhone()) && editCode.equals(verCodeValue.getCodeValue())) {
                     Toast.makeText(VerCodeLoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(VerCodeLoginActivity.this, "手机号或验证码有误", Toast.LENGTH_SHORT).show();
