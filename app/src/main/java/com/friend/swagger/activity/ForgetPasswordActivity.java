@@ -58,7 +58,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         resetPwdText = findViewById(R.id.reset_password);
         confirmPwdText = findViewById(R.id.confirm_password);
         verCodeDisplay = findViewById(R.id.ver_code);
-        verCodeApi = RetrofitService.cteateService(VerCodeApi.class);
+        verCodeApi = RetrofitService.createService(VerCodeApi.class);
         initButtonActions();
         initEditListeners();
     }

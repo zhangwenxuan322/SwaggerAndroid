@@ -52,7 +52,7 @@ public class VerCodeLoginActivity extends AppCompatActivity {
         phoneText = findViewById(R.id.login_phone);
         verCodeText = findViewById(R.id.login_ver_code);
         verCodeDisplay = findViewById(R.id.ver_code);
-        verCodeApi = RetrofitService.cteateService(VerCodeApi.class);
+        verCodeApi = RetrofitService.createService(VerCodeApi.class);
         initButtonActions();
         initEditListeners();
     }

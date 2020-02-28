@@ -26,7 +26,7 @@ public class RetrofitService {
             .client(okHttpClient)
             .build();
 
-    public static <S> S cteateService(Class<S> serviceClass) {
+    public static <S> S createService(Class<S> serviceClass) {
         return retrofit.create(serviceClass);
     }
 }

@@ -31,6 +31,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     private UserApi userApi;
     private VerCodeApi verCodeApi;
+
     @Before
     public void retrofit_build() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
@@ -64,17 +65,23 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void registerUserTest() throws IOException{
+    public void registerUserTest() throws IOException {
         UserProfile userProfile = new UserProfile("陈匡婷", "女", "ckt", "", "ckt1998", "xxx.jpg", "happy", null, null, 0, null);
-        Call<Map<String, Object>> call = userApi.registerUser(userProfile);
+        Call<Map<String, Object>> call = userApi.userRegister(userProfile);
         Response<Map<String, Object>> response = call.execute();
         System.out.println(response.body());
     }
 
     @Test
-    public void postCodeTest() throws IOException{
+    public void postCodeTest() throws IOException {
         Call<VerCode> call = verCodeApi.getCode("13813968440");
         Response<VerCode> response = call.execute();
+        System.out.println(response.body());
+    }
+
+    @Test
+    public void userLoginTest() throws IOException {
+        Response<Map<String, Object>> response = userApi.userLogin("15150576095", "888").execute();
         System.out.println(response.body());
     }
 }

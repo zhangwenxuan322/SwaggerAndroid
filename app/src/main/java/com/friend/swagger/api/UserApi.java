@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @Author ZhangWenXuan
@@ -37,5 +38,15 @@ public interface UserApi {
      * @return
      */
     @POST("user")
-    Call<Map<String, Object>> registerUser(@Body UserProfile userProfile);
+    Call<Map<String, Object>> userRegister(@Body UserProfile userProfile);
+
+    /**
+     * 用户登录
+     * @param account
+     * @param password
+     * @return
+     */
+    @GET("user/auth")
+    Call<Map<String, Object>> userLogin(@Query("account") String account,
+                                        @Query("password") String password);
 }
