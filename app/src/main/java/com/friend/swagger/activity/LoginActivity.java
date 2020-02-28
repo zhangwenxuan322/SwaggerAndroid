@@ -78,12 +78,16 @@ public class LoginActivity extends AppCompatActivity {
                                 // 登陆成功
                                 String token = map.get("token").toString();
                                 Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
+                                intent.putExtra(ChatActivity.EXTRA_ACCOUNT, account);
+                                intent.putExtra(ChatActivity.EXTRA_TOKEN, token);
+                                startActivity(intent);
+                                finish();
                             } else if (map.get("message").toString().equals(Constant.WRONG_PASSWORD)){
                                 Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                             } else if (map.get("message").toString().equals(Constant.USER_NOT_EXIST)) {
                                 Toast.makeText(LoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
                             }
-
                         }
 
                         @Override

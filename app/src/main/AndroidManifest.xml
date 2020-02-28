@@ -40,7 +40,7 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" /> <!-- FileProvider 相关配置 -->
+        <activity android:name=".activity.ChatActivity" /> <!-- FileProvider 相关配置 -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities=".FileProvider"
