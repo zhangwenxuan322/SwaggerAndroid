@@ -22,15 +22,15 @@ public interface UserApi {
      * @return
      */
     @GET("user/phone/{phone}")
-    Call<UserProfile> getUserByPhone(@Path("phone") String phone);
+    Call<Map<String, Object>> getUserByPhone(@Path("phone") String phone);
 
     /**
      * 根据swaggerid查询用户信息
      * @param swaggerId
      * @return
      */
-    @GET("user/swagger_id/{swaggerId}")
-    Call<UserProfile> getUserBySwaggerId(@Path("swaggerId") String swaggerId);
+    @GET("user/swaggerId/{swaggerId}")
+    Call<Map<String, Object>> getUserBySwaggerId(@Path("swaggerId") String swaggerId);
 
     /**
      * 用户注册

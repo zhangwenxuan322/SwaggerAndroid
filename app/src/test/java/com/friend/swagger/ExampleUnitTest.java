@@ -5,6 +5,7 @@ import com.friend.swagger.api.VerCodeApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.UserProfile;
 import com.friend.swagger.entity.VerCode;
+import com.google.gson.internal.LinkedTreeMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,15 +53,19 @@ public class ExampleUnitTest {
 
     @Test
     public void getUserByPhoneTest() throws IOException {
-        Call<UserProfile> call = userApi.getUserByPhone("17327761952");
-        Response<UserProfile> response = call.execute();
-        System.out.println(response.body());
+        Call<Map<String, Object>> call = userApi.getUserByPhone("15150576095");
+        Response<Map<String, Object>> response = call.execute();
+        if (response.body().get("code").equals("200")) {
+            LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)response.body().get("userProfile");
+            System.out.println(map.get("userCreateTime"));
+        }
+
     }
 
     @Test
     public void getUserBySwaggerIdTest() throws IOException {
-        Call<UserProfile> call = userApi.getUserBySwaggerId("ckt1998");
-        Response<UserProfile> response = call.execute();
+        Call<Map<String, Object>> call = userApi.getUserBySwaggerId("ckt1998");
+        Response<Map<String, Object>> response = call.execute();
         System.out.println(response.body());
     }
 

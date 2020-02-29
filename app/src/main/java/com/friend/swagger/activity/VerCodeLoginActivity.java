@@ -23,9 +23,14 @@ import android.widget.Toast;
 
 import com.friend.swagger.R;
 import com.friend.swagger.api.RetrofitService;
+import com.friend.swagger.api.UserApi;
 import com.friend.swagger.api.VerCodeApi;
+import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.entity.VerCode;
+import com.google.gson.internal.LinkedTreeMap;
+
+import java.util.Map;
 
 public class VerCodeLoginActivity extends AppCompatActivity {
     // 手机号输入框
@@ -36,6 +41,7 @@ public class VerCodeLoginActivity extends AppCompatActivity {
     private TextView verCodeDisplay;
     // api
     private VerCodeApi verCodeApi;
+    private UserApi userApi;
     // 获取验证码按钮
     private Button getVerCodeBtn;
     // 验证码值
@@ -53,6 +59,7 @@ public class VerCodeLoginActivity extends AppCompatActivity {
         verCodeText = findViewById(R.id.login_ver_code);
         verCodeDisplay = findViewById(R.id.ver_code);
         verCodeApi = RetrofitService.createService(VerCodeApi.class);
+        userApi = RetrofitService.createService(UserApi.class);
         initButtonActions();
         initEditListeners();
     }
@@ -136,8 +143,36 @@ public class VerCodeLoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String editCode = verCodeText.getText().toString();
                 String editPhone = phoneText.getText().toString();
+                if (editCode.isEmpty() || editPhone.isEmpty()) {
+                    Toast.makeText(VerCodeLoginActivity.this, "手机号或验证码不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (editPhone.equals(verCodeValue.getCodePhone()) && editCode.equals(verCodeValue.getCodeValue())) {
-                    Toast.makeText(VerCodeLoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                    userApi.getUserByPhone(editPhone).enqueue(new Callback<Map<String, Object>>() {
+                        @Override
+                        public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                            if (response.body().get("code").equals("404") && response.body().get("message").equals(Constant.USER_NOT_EXIST)) {
+                                Toast.makeText(VerCodeLoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            if (response.body().get("code").equals("200")) {
+                                LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)response.body().get("userProfile");
+                                String phone = (String)map.get("userPhone");
+                                String token = (String)map.get("userToken");
+                                Toast.makeText(VerCodeLoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(VerCodeLoginActivity.this, ChatActivity.class);
+                                intent.putExtra(ChatActivity.EXTRA_ACCOUNT, phone);
+                                intent.putExtra(ChatActivity.EXTRA_TOKEN, token);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                            Toast.makeText(VerCodeLoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } else {
                     Toast.makeText(VerCodeLoginActivity.this, "手机号或验证码有误", Toast.LENGTH_SHORT).show();
                 }
