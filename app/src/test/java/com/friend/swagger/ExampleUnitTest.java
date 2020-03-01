@@ -1,8 +1,13 @@
 package com.friend.swagger;
 
+import android.location.Location;
+
+import com.friend.swagger.activity.LoginActivity;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.api.VerCodeApi;
 import com.friend.swagger.common.Constant;
+import com.friend.swagger.common.LocationUtil;
+import com.friend.swagger.common.SystemUtil;
 import com.friend.swagger.entity.UserProfile;
 import com.friend.swagger.entity.VerCode;
 import com.google.gson.internal.LinkedTreeMap;
@@ -86,7 +91,12 @@ public class ExampleUnitTest {
 
     @Test
     public void userLoginTest() throws IOException {
-        Response<Map<String, Object>> response = userApi.userLogin("15150576095", "888").execute();
+        Response<Map<String, Object>> response = userApi.userLogin("15150576095", "888", "111.111.111.111", "上海").execute();
         System.out.println(response.body());
+    }
+
+    @Test
+    public void ipTest() {
+        System.out.println(SystemUtil.getIpAddressString());
     }
 }

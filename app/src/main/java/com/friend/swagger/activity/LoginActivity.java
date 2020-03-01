@@ -1,9 +1,16 @@
 package com.friend.swagger.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -13,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.CallSuper;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,18 +29,25 @@ import com.friend.swagger.R;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
+import com.friend.swagger.common.LocationUtil;
+import com.friend.swagger.common.SystemUtil;
+import com.tamsiree.rxtool.RxPermissionsTool;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     // 账号输入框
-    EditText accountText;
+    private EditText accountText;
     // 密码输入框
-    EditText passwordText;
+    private EditText passwordText;
     // 登录按钮
-    Button loginBtn;
+    private Button loginBtn;
     // api
-    UserApi userApi;
+    private UserApi userApi;
+    // 位置信息
+    private String place = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         userApi = RetrofitService.createService(UserApi.class);
         // 按钮点击事件初始化
         initButtonAction();
+        RxPermissionsTool.with(LoginActivity.this).addPermission("android.permission.ACCESS_FINE_LOCATION").initPermission();
     }
 
     /**
@@ -66,7 +82,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (account.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
                 } else {
-                    userApi.userLogin(account, password).enqueue(new Callback<Map<String, Object>>() {
+                    if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 255);
+                    } else {
+                        LocationUtil.initLocation(LoginActivity.this);
+                        place = "lat:" + String.format("%.2f", LocationUtil.latitude) + "lon:" + String.format("%.2f", LocationUtil.longitude);
+                    }
+                    userApi.userLogin(account, password, SystemUtil.getIpAddressString(), place).enqueue(new Callback<Map<String, Object>>() {
                         @Override
                         public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                             Map<String, Object> map = response.body();
@@ -83,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtra(ChatActivity.EXTRA_TOKEN, token);
                                 startActivity(intent);
                                 finish();
-                            } else if (map.get("message").toString().equals(Constant.WRONG_PASSWORD)){
+                            } else if (map.get("message").toString().equals(Constant.WRONG_PASSWORD)) {
                                 Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
                             } else if (map.get("message").toString().equals(Constant.USER_NOT_EXIST)) {
                                 Toast.makeText(LoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();

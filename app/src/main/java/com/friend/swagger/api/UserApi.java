@@ -44,9 +44,13 @@ public interface UserApi {
      * 用户登录
      * @param account
      * @param password
+     * @param ip
+     * @param place
      * @return
      */
     @GET("user/auth")
     Call<Map<String, Object>> userLogin(@Query("account") String account,
-                                        @Query("password") String password);
+                                        @Query("password") String password,
+                                        @Query("ip") String ip,
+                                        @Query("place") String place);
 }
