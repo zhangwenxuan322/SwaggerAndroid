@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -53,4 +54,14 @@ public interface UserApi {
                                         @Query("password") String password,
                                         @Query("ip") String ip,
                                         @Query("place") String place);
+
+    /**
+     * 修改密码
+     * @param phone
+     * @param password
+     * @return
+     */
+    @PUT("user/info")
+    Call<Map<String, Object>> changePassword(@Query("phone") String phone,
+                                             @Query("password") String password);
 }

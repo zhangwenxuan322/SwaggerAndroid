@@ -99,4 +99,10 @@ public class ExampleUnitTest {
     public void ipTest() {
         System.out.println(SystemUtil.getIpAddressString());
     }
+
+    @Test
+    public void changePasswordTest() throws IOException {
+        Response<Map<String, Object>> response = userApi.changePassword("13813968440", "233").execute();
+        System.out.println(response.body());
+    }
 }
