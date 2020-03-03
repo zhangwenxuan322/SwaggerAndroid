@@ -61,7 +61,7 @@ public interface UserApi {
      * @param password
      * @return
      */
-    @PUT("user/info")
+    @PUT("user/password")
     Call<Map<String, Object>> changePassword(@Query("phone") String phone,
                                              @Query("password") String password);
 }
