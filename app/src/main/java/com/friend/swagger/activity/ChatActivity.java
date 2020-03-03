@@ -7,6 +7,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -25,6 +26,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        RongIM.getInstance().setConversationClickListener(new MyConversationClickListener());
     }
 
     private void initView() {
