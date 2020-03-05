@@ -23,7 +23,9 @@ public class UserProfile {
     public UserProfile() {
     }
 
-    public UserProfile(String userName, String userSex, String userPassword, String userPhone, String userSwaggerId, String userPortrait, String userBio, Date userCreateTime, Date userModifyTime, int userLoginInfoId, String userToken) {
+    public UserProfile(String userName, String userSex, String userPassword, String userPhone,
+                       String userSwaggerId, String userPortrait, String userBio, Date userCreateTime,
+                       Date userModifyTime, int userLoginInfoId, String userToken) {
         this.userName = userName;
         this.userSex = userSex;
         this.userPassword = userPassword;

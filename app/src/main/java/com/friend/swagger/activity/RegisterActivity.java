@@ -13,7 +13,6 @@ import retrofit2.Response;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.MotionEvent;
@@ -23,7 +22,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -32,12 +30,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.friend.swagger.R;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
+import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.common.SystemUtil;
+import com.friend.swagger.entity.UserProfile;
 import com.tamsiree.rxtool.RxPermissionsTool;
 import com.tamsiree.rxtool.RxPhotoTool;
 import com.tamsiree.rxui.view.dialog.RxDialogChooseImage;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -51,9 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioButton male;
     private RadioButton female;
     // 手机号
-    private EditText userPhone;
+    private EditText userPhoneText;
     // 密码
-    private EditText userPwd;
+    private EditText userPwdText;
     // api
     private UserApi userApi;
 
@@ -68,8 +70,8 @@ public class RegisterActivity extends AppCompatActivity {
         userNameText = findViewById(R.id.register_username);
         male = findViewById(R.id.male);
         female = findViewById(R.id.female);
-        userPhone = findViewById(R.id.register_phone);
-        userPwd = findViewById(R.id.register_password);
+        userPhoneText = findViewById(R.id.register_phone);
+        userPwdText = findViewById(R.id.register_password);
         userApi = RetrofitService.createService(UserApi.class);
         initProtraitSelector();
         initButtonActions();
@@ -99,26 +101,45 @@ public class RegisterActivity extends AppCompatActivity {
      * 注册检验
      */
     private void validRegister() {
-//        if (male.isChecked()) {
-//            Toast.makeText(RegisterActivity.this, "男", Toast.LENGTH_SHORT).show();
-//        } else if (female.isChecked()) {
-//            Toast.makeText(RegisterActivity.this, "女", Toast.LENGTH_SHORT).show();
-//        }
-//        Drawable.ConstantState drawableCs = RegisterActivity.this.getResources().getDrawable(R.drawable.circle_elves_ball).getConstantState();
-//        if (portrait.getDrawable().getConstantState().equals(drawableCs)) {
-//            Toast.makeText(RegisterActivity.this, "请选择图片", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-        String fileNameByTimeStamp = "androidtest1.png";
-//        File file = new File(RxPhotoTool.getRealFilePath(RegisterActivity.this,
-//                RxPhotoTool.cropImageUri));
-        File file = SystemUtil.drawableToFile(RegisterActivity.this, R.drawable.swagger_logo, "swaggerlogo");
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileNameByTimeStamp, requestFile);
-        userApi.uploadPortrait(body, RequestBody.create(null, "androidtest1.png")).enqueue(new Callback<Map<String, Object>>() {
+        // 空验证
+        if (userNameText.getText().toString().isEmpty() || userPhoneText.getText().toString().isEmpty() || userPwdText.getText().toString().isEmpty()) {
+            Toast.makeText(RegisterActivity.this, "不能有空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!male.isChecked() && !female.isChecked()) {
+            Toast.makeText(RegisterActivity.this, "请选择性别", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // 值获取
+        String userName = userNameText.getText().toString();
+        String userPhone = userPhoneText.getText().toString();
+        String userPwd = userPwdText.getText().toString();
+        String userSex = "";
+        if (male.isChecked()) userSex = "男";
+        else if (female.isChecked()) userSex = "女";
+        String fileName = userPhone + String.valueOf(new Date().getTime()) + ".png";
+        // 手机号验证
+        if (!PhoneUtil.isMobileNO(userPhone)) {
+            Toast.makeText(RegisterActivity.this, "手机号格式有误", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // 用户注册
+        UserProfile userProfile = new UserProfile(userName, userSex, userPwd, userPhone,
+                null, fileName, null, null, null,
+                0, null);
+        userApi.userRegister(userProfile).enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                Toast.makeText(RegisterActivity.this, response.body().toString(), Toast.LENGTH_SHORT).show();
+                if (response.body().get("code").toString().equals("415")) {
+                    Toast.makeText(RegisterActivity.this, "用户已存在！", Toast.LENGTH_SHORT).show();
+                }
+                if (response.body().get("code").toString().equals("200")) {
+                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    // 上传头像
+                    uploadPortrait(fileName);
+                    // 跳转至登录页
+                    toActivity(LoginActivity.class);
+                }
             }
 
             @Override
@@ -126,6 +147,41 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
+    }
+
+    /**
+     * 上传头像
+     * @param fileName
+     */
+    private void uploadPortrait(String fileName) {
+        File file;
+        Drawable.ConstantState drawableCs = RegisterActivity.this.getResources().getDrawable(R.drawable.swagger_logo).getConstantState();
+        if (portrait.getDrawable().getConstantState().equals(drawableCs)) {
+            // 未选择图片上传默认头像
+            file = SystemUtil.drawableToFile(RegisterActivity.this, R.drawable.swagger_logo, "swaggerlogo");
+        } else {
+            // 选择图片后上传选中头像
+            file = new File(RxPhotoTool.getRealFilePath(RegisterActivity.this,
+                    RxPhotoTool.cropImageUri));
+        }
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileName, requestFile);
+        userApi.uploadPortrait(body, RequestBody.create(null, fileName))
+                .enqueue(new Callback<Map<String, Object>>() {
+                    @Override
+                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                        if (response.body().get("code").toString().equals("404")) {
+                            Toast.makeText(RegisterActivity.this, response.body().get("message").toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     /**
