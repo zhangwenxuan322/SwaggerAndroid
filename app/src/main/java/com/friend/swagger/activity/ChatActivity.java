@@ -15,16 +15,19 @@ import android.os.Bundle;
 import android.view.Menu;
 
 import com.friend.swagger.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ChatActivity extends AppCompatActivity {
     public static final String EXTRA_ACCOUNT =
             "indi.friend.swagger.EXTRA_ACCOUNT";
     public static final String EXTRA_TOKEN =
             "indi.friend.swagger.EXTRA_TOKEN";
+    private FloatingActionButton startChatBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_chat);
+        startChatBtn = findViewById(R.id.startChat);
         initView();
         RongIM.getInstance().setConversationClickListener(new MyConversationClickListener());
     }
@@ -51,7 +54,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private void initFragment() {
         // 集成 ConversationListFragment
-        ConversationListFragment conversationListFragment = new ConversationListFragment();
+//        ConversationListFragment conversationListFragment = new ConversationListFragment();
+        FragmentManager fragmentManage = getSupportFragmentManager();
+        ConversationListFragment conversationListFragment = (ConversationListFragment) fragmentManage.findFragmentById(R.id.conversationlist);
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversationlist")
                 .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false")
@@ -62,10 +67,10 @@ public class ChatActivity extends AppCompatActivity {
                 .build();
         conversationListFragment.setUri(uri);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.main_layout, conversationListFragment);
-        transaction.commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.add(R.id.main_layout, conversationListFragment);
+//        transaction.commit();
     }
 
     @Override
