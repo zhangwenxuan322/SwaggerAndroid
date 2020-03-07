@@ -2,6 +2,7 @@ package com.friend.swagger;
 
 import android.app.Application;
 
+import com.billy.android.swipe.SmartSwipeBack;
 import com.tamsiree.rxtool.RxTool;
 
 import io.rong.imkit.RongIM;
