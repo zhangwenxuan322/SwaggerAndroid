@@ -11,8 +11,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+
 import com.friend.swagger.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 public class ChatActivity extends AppCompatActivity {
     public static final String EXTRA_ACCOUNT =
@@ -20,6 +23,8 @@ public class ChatActivity extends AppCompatActivity {
     public static final String EXTRA_TOKEN =
             "indi.friend.swagger.EXTRA_TOKEN";
     private FloatingActionButton startChatBtn;
+    private SlidingRootNav slidingRootNav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,11 @@ public class ChatActivity extends AppCompatActivity {
             public void onError(RongIMClient.ErrorCode errorCode) {
             }
         });
+        slidingRootNav = new SlidingRootNavBuilder(this)
+                .withDragDistance(100)
+                .withRootViewScale(0.8f)
+                .withMenuLayout(R.layout.menu_left_drawer)
+                .inject();
     }
 
     private void initFragment() {

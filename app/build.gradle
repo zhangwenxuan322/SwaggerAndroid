@@ -62,4 +62,6 @@ dependencies {
     //ArcGis For Android工具库（API：100.1以上版本）
     implementation 'com.github.tamsiree.RxTool:RxArcGisKit:v2.4.3'
     implementation 'com.github.yalantis:ucrop:2.2.4-native'
+
+    compile 'com.yarolegovich:sliding-root-nav:1.1.0'
 }
