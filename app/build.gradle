@@ -33,6 +33,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.annotation:annotation:1.0.2'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-fragment:2.0.0'
+    implementation 'androidx.navigation:navigation-ui:2.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
@@ -63,5 +66,5 @@ dependencies {
     implementation 'com.github.tamsiree.RxTool:RxArcGisKit:v2.4.3'
     implementation 'com.github.yalantis:ucrop:2.2.4-native'
 
-    compile 'com.yarolegovich:sliding-root-nav:1.1.0'
+    implementation 'com.yarolegovich:sliding-root-nav:1.1.0'
 }

@@ -1,6 +1,7 @@
 package com.friend.swagger.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
@@ -52,7 +53,11 @@ public class ChatActivity extends AppCompatActivity {
             public void onError(RongIMClient.ErrorCode errorCode) {
             }
         });
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
         slidingRootNav = new SlidingRootNavBuilder(this)
+                .withToolbarMenuToggle(toolbar)
                 .withDragDistance(100)
                 .withRootViewScale(0.8f)
                 .withMenuLayout(R.layout.menu_left_drawer)

@@ -16,8 +16,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.TestActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activity.ForgetPasswordActivity" />
         <activity android:name=".activity.VerCodeLoginActivity" />
         <activity android:name=".activity.RegisterActivity" />
@@ -28,7 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ConversationActivity"
+        <activity
+            android:name=".activity.ConversationActivity"
             android:parentActivityName=".activity.ChatActivity">
 
             <!-- intent-filter 配置 -->
