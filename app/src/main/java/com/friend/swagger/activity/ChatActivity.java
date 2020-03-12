@@ -15,8 +15,6 @@ import android.view.Menu;
 
 import com.friend.swagger.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.yarolegovich.slidingrootnav.SlidingRootNav;
-import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 public class ChatActivity extends AppCompatActivity {
     public static final String EXTRA_ACCOUNT =
@@ -24,7 +22,6 @@ public class ChatActivity extends AppCompatActivity {
     public static final String EXTRA_TOKEN =
             "indi.friend.swagger.EXTRA_TOKEN";
     private FloatingActionButton startChatBtn;
-    private SlidingRootNav slidingRootNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +52,6 @@ public class ChatActivity extends AppCompatActivity {
         });
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setBackgroundColor(getResources().getColor(R.color.white));
-        setSupportActionBar(toolbar);
-        slidingRootNav = new SlidingRootNavBuilder(this)
-                .withToolbarMenuToggle(toolbar)
-                .withDragDistance(100)
-                .withRootViewScale(0.8f)
-                .withMenuLayout(R.layout.menu_left_drawer)
-                .inject();
     }
 
     private void initFragment() {
