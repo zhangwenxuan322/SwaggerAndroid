@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name=".activity.ConversationActivity"
-            android:parentActivityName=".activity.ChatActivity">
+            android:label="">
 
             <!-- intent-filter 配置 -->
             <intent-filter>

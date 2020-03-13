@@ -118,6 +118,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             case R.id.settings:
                 Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.logout:
+                Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show();
+                break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

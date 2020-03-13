@@ -8,6 +8,7 @@
 
     <ImageView
         android:id="@+id/user_portrait"
+        android:layout_marginTop="16dp"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:src="@drawable/swagger_logo" />

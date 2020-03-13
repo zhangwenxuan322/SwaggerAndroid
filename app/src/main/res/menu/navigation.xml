@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group
-        android:id="@+id/normal_group"
-        android:checkableBehavior="single">
+        android:id="@+id/normal_group">
         <item
             android:id="@+id/nearby"
             android:icon="@drawable/ic_nature_people"
@@ -20,6 +19,7 @@
         <menu>
             <item
                 android:id="@+id/logout"
+                android:icon="@drawable/ic_exit_to_app"
                 android:title="登出" />
         </menu>
     </item>
