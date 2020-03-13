@@ -62,7 +62,7 @@ public class ExampleUnitTest {
         Response<Map<String, Object>> response = call.execute();
         if (response.body().get("code").equals("200")) {
             LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)response.body().get("userProfile");
-            System.out.println(map.get("userCreateTime"));
+            System.out.println(map.toString());
         }
 
     }
