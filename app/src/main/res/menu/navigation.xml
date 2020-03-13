@@ -4,17 +4,23 @@
         android:id="@+id/normal_group"
         android:checkableBehavior="single">
         <item
+            android:id="@+id/nearby"
+            android:icon="@drawable/ic_nature_people"
+            android:title="附近的人" />
+        <item
             android:id="@+id/contacts"
-            android:title="Contacts" />
+            android:icon="@drawable/ic_people"
+            android:title="我的好友" />
         <item
             android:id="@+id/settings"
-            android:title="Settings" />
+            android:icon="@drawable/ic_settings"
+            android:title="设置" />
     </group>
     <item android:title="">
         <menu>
             <item
                 android:id="@+id/logout"
-                android:title="Logout"/>
+                android:title="登出" />
         </menu>
     </item>
 </menu>

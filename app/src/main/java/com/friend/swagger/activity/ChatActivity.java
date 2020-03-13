@@ -94,11 +94,16 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
+            case R.id.nearby:
+                Toast.makeText(this, "nearby", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.contacts:
                 Toast.makeText(this, "contacts", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.settings:
+                Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
+                break;
         }
-        menuItem.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
