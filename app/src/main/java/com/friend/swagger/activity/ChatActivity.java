@@ -17,6 +17,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.friend.swagger.R;
@@ -40,8 +42,21 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+        initHeaderView();
         initView();
         RongIM.getInstance().setConversationClickListener(new MyConversationClickListener());
+    }
+
+    private void initHeaderView() {
+        View headview = navigationView.inflateHeaderView(R.layout.header);
+        ImageView head_iv= headview.findViewById(R.id.user_portrait);
+        head_iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Toast.makeText(ChatActivity.this, "header", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initView() {
