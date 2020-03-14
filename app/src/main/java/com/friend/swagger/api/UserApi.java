@@ -6,6 +6,7 @@ import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -79,4 +80,12 @@ public interface UserApi {
     @POST("user/portrait")
     Call<Map<String, Object>> uploadPortrait(@Part MultipartBody.Part file,
                                              @Part("filename") RequestBody filename);
+
+    /**
+     * 下载用户头像
+     * @param fileName
+     * @return
+     */
+    @GET("user/portrait/{fileName}")
+    Call<ResponseBody> downloadPortrait(@Path("fileName") String fileName);
 }

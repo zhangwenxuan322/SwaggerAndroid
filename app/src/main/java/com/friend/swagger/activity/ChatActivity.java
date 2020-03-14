@@ -11,11 +11,14 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,6 +37,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -80,34 +88,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             userApi.getUserByPhone(account).enqueue(new Callback<Map<String, Object>>() {
                 @Override
                 public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                    if (response.body() == null) {
-                        Toast.makeText(ChatActivity.this, "请求异常", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    if (response.body().get("code").equals("200")) {
-                        LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)response.body().get("userProfile");
-                        userProfile = new UserProfile();
-                        userProfile.setUserName(map.get("userName").toString());
-                        userProfile.setUserSex(map.get("userSex").toString());
-                        userProfile.setUserPhone(map.get("userPhone").toString());
-                        if (map.get("userSwaggerId") == null)
-                            userProfile.setUserSwaggerId("");
-                        else
-                            userProfile.setUserSwaggerId(map.get("userSwaggerId").toString());
-                        userProfile.setUserPortrait(map.get("userPortrait").toString());
-                        if (map.get("userBio") == null)
-                            userProfile.setUserBio("");
-                        else
-                            userProfile.setUserBio(map.get("userBio").toString());
-                        headText.setText(userProfile.getUserName());
-                    } else {
-                        Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
-                    }
+                    getUserInfo(response);
                 }
 
                 @Override
                 public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
+                    Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -115,20 +101,68 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             userApi.getUserBySwaggerId(account).enqueue(new Callback<Map<String, Object>>() {
                 @Override
                 public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                    if (response.body().get("code").equals("200")) {
-                        LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)response.body().get("userProfile");
-                        Toast.makeText(ChatActivity.this, map.toString(), Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
-                    }
+                    getUserInfo(response);
                 }
 
                 @Override
                 public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
+                    Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
                 }
             });
         }
+    }
+
+    /**
+     * 用户信息赋值
+     *
+     * @param response
+     */
+    private void getUserInfo(Response<Map<String, Object>> response) {
+        if (response.body() == null) {
+            Toast.makeText(ChatActivity.this, "请求异常", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (response.body().get("code").equals("200")) {
+            LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
+            userProfile = new UserProfile();
+            userProfile.setUserName(map.get("userName").toString());
+            userProfile.setUserSex(map.get("userSex").toString());
+            userProfile.setUserPhone(map.get("userPhone").toString());
+            if (map.get("userSwaggerId") == null)
+                userProfile.setUserSwaggerId("");
+            else
+                userProfile.setUserSwaggerId(map.get("userSwaggerId").toString());
+            userProfile.setUserPortrait(map.get("userPortrait").toString());
+            if (map.get("userBio") == null)
+                userProfile.setUserBio("");
+            else
+                userProfile.setUserBio(map.get("userBio").toString());
+            headText.setText(userProfile.getUserName());
+            setUserPortrait(userProfile.getUserPortrait());
+        } else {
+            Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 设置用户头像
+     */
+    private void setUserPortrait(String fileName) {
+        userApi.downloadPortrait(fileName).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.body() != null) {
+                    InputStream inputStream = response.body().byteStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    headImage.setImageBitmap(bitmap);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 
     /**
@@ -136,15 +170,28 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
      */
     private void initHeaderView() {
         headView = navigationView.inflateHeaderView(R.layout.header);
-        headImage= headView.findViewById(R.id.user_portrait);
+        headImage = headView.findViewById(R.id.user_portrait);
         headText = headView.findViewById(R.id.user_name);
         headImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.closeDrawer(GravityCompat.START);
-                Toast.makeText(ChatActivity.this, "header", Toast.LENGTH_SHORT).show();
+                userDetailListener();
             }
         });
+        headText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userDetailListener();
+            }
+        });
+    }
+
+    /**
+     * 头部视图点击事件
+     */
+    private void userDetailListener() {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        Toast.makeText(ChatActivity.this, "header", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -201,6 +248,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
     /**
      * 监听侧边栏点击
+     *
      * @param menuItem
      * @return
      */
@@ -209,6 +257,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.nearby:
                 Toast.makeText(this, "nearby", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.group_chat:
+                Toast.makeText(this, "groupChat", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.contacts:
                 Toast.makeText(this, "contacts", Toast.LENGTH_SHORT).show();

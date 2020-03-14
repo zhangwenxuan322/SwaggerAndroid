@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group
-        android:id="@+id/normal_group">
+    <group android:id="@+id/normal_group">
         <item
             android:id="@+id/nearby"
             android:icon="@drawable/ic_nature_people"
             android:title="附近的人" />
+        <item
+            android:id="@+id/group_chat"
+            android:icon="@drawable/ic_chat"
+            android:title="新的群聊" />
         <item
             android:id="@+id/contacts"
             android:icon="@drawable/ic_people"

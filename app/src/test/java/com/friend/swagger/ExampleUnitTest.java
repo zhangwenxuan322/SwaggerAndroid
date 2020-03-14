@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -104,5 +105,11 @@ public class ExampleUnitTest {
     public void changePasswordTest() throws IOException {
         Response<Map<String, Object>> response = userApi.changePassword("13813968440", "233").execute();
         System.out.println(response.body());
+    }
+
+    @Test
+    public void downloadPortraitTest() throws IOException{
+        Response<ResponseBody> responseBodyResponse = userApi.downloadPortrait("androidtest1.png").execute();
+        System.out.println(responseBodyResponse.body());
     }
 }
