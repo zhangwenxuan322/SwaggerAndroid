@@ -125,18 +125,19 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         if (response.body().get("code").equals("200")) {
             LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
             userProfile = new UserProfile();
-            userProfile.setUserName(map.get("userName").toString());
-            userProfile.setUserSex(map.get("userSex").toString());
-            userProfile.setUserPhone(map.get("userPhone").toString());
+            userProfile.setUserName(String.valueOf(map.get("userName")));
+            userProfile.setUserSex(String.valueOf(map.get("userSex")));
+            userProfile.setUserPhone(String.valueOf(map.get("userPhone")));
             if (map.get("userSwaggerId") == null)
                 userProfile.setUserSwaggerId("");
             else
-                userProfile.setUserSwaggerId(map.get("userSwaggerId").toString());
-            userProfile.setUserPortrait(map.get("userPortrait").toString());
+                userProfile.setUserSwaggerId(String.valueOf(map.get("userSwaggerId")));
+            userProfile.setUserPortrait(String.valueOf(map.get("userPortrait")));
             if (map.get("userBio") == null)
                 userProfile.setUserBio("");
             else
-                userProfile.setUserBio(map.get("userBio").toString());
+                userProfile.setUserBio(String.valueOf(map.get("userBio")));
+            userProfile.setUserLoginInfoId(new Double(String.valueOf(map.get("userLoginInfoId"))).intValue());
             headText.setText(userProfile.getUserName());
             setUserPortrait(userProfile.getUserPortrait());
         } else {
