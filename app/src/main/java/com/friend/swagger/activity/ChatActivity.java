@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.friend.swagger.R;
@@ -48,6 +49,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private UserApi userApi;
     // 用户信息
     private UserProfile userProfile;
+    // 侧边栏头部
+    private View headView;
+    private ImageView headImage;
+    private TextView headText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +87,19 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     if (response.body().get("code").equals("200")) {
                         LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)response.body().get("userProfile");
                         userProfile = new UserProfile();
-                        userProfile.setUserId(new Integer(map.get("userId").toString()));
                         userProfile.setUserName(map.get("userName").toString());
-                        // TODO:userprofile赋值
+                        userProfile.setUserSex(map.get("userSex").toString());
+                        userProfile.setUserPhone(map.get("userPhone").toString());
+                        if (map.get("userSwaggerId") == null)
+                            userProfile.setUserSwaggerId("");
+                        else
+                            userProfile.setUserSwaggerId(map.get("userSwaggerId").toString());
+                        userProfile.setUserPortrait(map.get("userPortrait").toString());
+                        if (map.get("userBio") == null)
+                            userProfile.setUserBio("");
+                        else
+                            userProfile.setUserBio(map.get("userBio").toString());
+                        headText.setText(userProfile.getUserName());
                     } else {
                         Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
                     }
@@ -120,9 +135,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
      * 初始化侧边栏头部视图并监听
      */
     private void initHeaderView() {
-        View headview = navigationView.inflateHeaderView(R.layout.header);
-        ImageView head_iv= headview.findViewById(R.id.user_portrait);
-        head_iv.setOnClickListener(new View.OnClickListener() {
+        headView = navigationView.inflateHeaderView(R.layout.header);
+        headImage= headView.findViewById(R.id.user_portrait);
+        headText = headView.findViewById(R.id.user_name);
+        headImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.closeDrawer(GravityCompat.START);
