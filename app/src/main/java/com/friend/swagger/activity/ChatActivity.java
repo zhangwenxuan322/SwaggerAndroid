@@ -11,6 +11,7 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +32,9 @@ import android.widget.Toast;
 import com.friend.swagger.R;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
+import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.PhoneUtil;
+import com.friend.swagger.common.SystemUtil;
 import com.friend.swagger.entity.UserProfile;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -42,6 +45,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +61,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private UserApi userApi;
     // 用户信息
     private UserProfile userProfile;
+    // 聊天用户信息
+    private UserProfile chatUserProfile;
     // 侧边栏头部
     private View headView;
     private ImageView headImage;
@@ -71,6 +77,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
         userApi = RetrofitService.createService(UserApi.class);
+        chatUserProfile = new UserProfile();
         intent = getIntent();
         initHeaderView();
         initView();
@@ -208,6 +215,35 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onSuccess(String s) {
+                RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+                    @Override
+                    public UserInfo getUserInfo(String userId) {
+                        int id = SystemUtil.getNum(userId);
+                        userApi.getUserById(id).enqueue(new Callback<Map<String, Object>>() {
+                            @Override
+                            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                                if (response.body() != null) {
+                                    if (response.body().get("code").equals("200")) {
+                                        LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
+                                        chatUserProfile.setUserName(String.valueOf(map.get("userName")));
+                                        chatUserProfile.setUserPortrait(String.valueOf(map.get("userPortrait")));
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+
+                            }
+                        });
+                        UserInfo userInfo = new UserInfo(userId, chatUserProfile.getUserName(),
+                                Uri.parse(Constant.remoteUrl +
+                                        "user/portrait/" +
+                                        chatUserProfile.getUserPortrait()));
+                        RongIM.getInstance().refreshUserInfoCache(userInfo);
+                        return userInfo;
+                    }
+                }, true);
                 initFragment();
             }
 

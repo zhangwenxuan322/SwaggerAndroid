@@ -107,4 +107,13 @@ public interface UserApi {
     @FormUrlEncoded
     @POST("user/unauth")
     Call<Map<String, Object>> logout(@Field("loginId") int loginId);
+
+    /**
+     * 根据id查找用户信息
+     *
+     * @param id
+     * @return
+     */
+    @GET("user/id/{id}")
+    Call<Map<String, Object>> getUserById(@Path("id") int id);
 }

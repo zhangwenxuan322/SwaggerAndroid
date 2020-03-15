@@ -119,4 +119,15 @@ public class ExampleUnitTest {
         System.out.println(mapResponse.body());
     }
 
+    @Test
+    public void getUserByIdTest() throws IOException {
+        Response<Map<String, Object>> response = userApi.getUserById(1).execute();
+        System.out.println(response.body());
+    }
+
+    @Test
+    public void getNumTest() throws IOException {
+        int a = SystemUtil.getNum("androidtest45");
+        System.out.println(a);
+    }
 }
