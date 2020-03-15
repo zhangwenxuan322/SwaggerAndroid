@@ -269,7 +269,25 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.logout:
-                Toast.makeText(this, "logout", Toast.LENGTH_SHORT).show();
+                userApi.logout(userProfile.getUserLoginInfoId()).enqueue(new Callback<Map<String, Object>>() {
+                    @Override
+                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                        if (response.body() != null) {
+                            RongIMClient.getInstance().disconnect();
+                            Intent loginIntent = new Intent(ChatActivity.this, LoginActivity.class);
+                            startActivity(loginIntent);
+                            Toast.makeText(ChatActivity.this, "登出成功", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(ChatActivity.this, "登出失败", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                        Toast.makeText(ChatActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);

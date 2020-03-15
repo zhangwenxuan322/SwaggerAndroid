@@ -112,4 +112,11 @@ public class ExampleUnitTest {
         Response<ResponseBody> responseBodyResponse = userApi.downloadPortrait("androidtest1.png").execute();
         System.out.println(responseBodyResponse.body());
     }
+
+    @Test
+    public void logoutTest() throws IOException {
+        Response<Map<String, Object>> mapResponse = userApi.logout(1).execute();
+        System.out.println(mapResponse.body());
+    }
+
 }

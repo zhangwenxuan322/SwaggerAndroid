@@ -9,6 +9,8 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -24,6 +26,7 @@ import retrofit2.http.Query;
 public interface UserApi {
     /**
      * 根据手机号查询用户信息
+     *
      * @param phone
      * @return
      */
@@ -32,6 +35,7 @@ public interface UserApi {
 
     /**
      * 根据swaggerid查询用户信息
+     *
      * @param swaggerId
      * @return
      */
@@ -40,6 +44,7 @@ public interface UserApi {
 
     /**
      * 用户注册
+     *
      * @param userProfile
      * @return
      */
@@ -48,6 +53,7 @@ public interface UserApi {
 
     /**
      * 用户登录
+     *
      * @param account
      * @param password
      * @param ip
@@ -62,6 +68,7 @@ public interface UserApi {
 
     /**
      * 修改密码
+     *
      * @param phone
      * @param password
      * @return
@@ -72,6 +79,7 @@ public interface UserApi {
 
     /**
      * 上传用户头像
+     *
      * @param file
      * @param filename
      * @return
@@ -83,9 +91,20 @@ public interface UserApi {
 
     /**
      * 下载用户头像
+     *
      * @param fileName
      * @return
      */
     @GET("user/portrait/{fileName}")
     Call<ResponseBody> downloadPortrait(@Path("fileName") String fileName);
+
+    /**
+     * 用户登出
+     *
+     * @param loginId
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/unauth")
+    Call<Map<String, Object>> logout(@Field("loginId") int loginId);
 }
