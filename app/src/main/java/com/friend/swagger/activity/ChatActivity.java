@@ -242,7 +242,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 //                                        "user/portrait/" +
 //                                        chatUserProfile.getUserPortrait()));
 //                        RongIM.getInstance().refreshUserInfoCache(userInfo);
-                        return null;
+                        return new UserInfo("swaggertestid13", "张文轩", Uri.parse(""));
                     }
                 }, true);
                 initFragment();
