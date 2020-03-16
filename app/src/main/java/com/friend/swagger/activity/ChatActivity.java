@@ -219,29 +219,30 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                     @Override
                     public UserInfo getUserInfo(String userId) {
                         int id = SystemUtil.getNum(userId);
-                        userApi.getUserById(id).enqueue(new Callback<Map<String, Object>>() {
-                            @Override
-                            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                                if (response.body() != null) {
-                                    if (response.body().get("code").equals("200")) {
-                                        LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
-                                        chatUserProfile.setUserName(String.valueOf(map.get("userName")));
-                                        chatUserProfile.setUserPortrait(String.valueOf(map.get("userPortrait")));
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
-                            }
-                        });
-                        UserInfo userInfo = new UserInfo(userId, chatUserProfile.getUserName(),
-                                Uri.parse(Constant.remoteUrl +
-                                        "user/portrait/" +
-                                        chatUserProfile.getUserPortrait()));
-                        RongIM.getInstance().refreshUserInfoCache(userInfo);
-                        return userInfo;
+                        Toast.makeText(ChatActivity.this, id, Toast.LENGTH_SHORT).show();
+//                        userApi.getUserById(id).enqueue(new Callback<Map<String, Object>>() {
+//                            @Override
+//                            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+//                                if (response.body() != null) {
+//                                    if (response.body().get("code").equals("200")) {
+//                                        LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
+//                                        chatUserProfile.setUserName(String.valueOf(map.get("userName")));
+//                                        chatUserProfile.setUserPortrait(String.valueOf(map.get("userPortrait")));
+//                                    }
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+//
+//                            }
+//                        });
+//                        UserInfo userInfo = new UserInfo(userId, chatUserProfile.getUserName(),
+//                                Uri.parse(Constant.remoteUrl +
+//                                        "user/portrait/" +
+//                                        chatUserProfile.getUserPortrait()));
+//                        RongIM.getInstance().refreshUserInfoCache(userInfo);
+                        return null;
                     }
                 }, true);
                 initFragment();
