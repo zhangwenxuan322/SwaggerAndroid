@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.friend.swagger.activity.UserDeatailActivity">
+    tools:context="com.friend.swagger.activity.NearbyActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,10 +13,7 @@
         android:layout_marginTop="0dp"
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="个人信息"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="附近的人"
         app:titleTextColor="@color/white" />
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

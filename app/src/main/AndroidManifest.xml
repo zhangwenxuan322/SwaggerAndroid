@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.UserDeatailActivity"></activity>
+        <activity android:name=".activity.NearbyActivity"></activity>
+        <activity android:name=".activity.UserDeatailActivity" />
         <activity
             android:name=".activity.TestActivity"
             android:label="@string/title_activity_test"

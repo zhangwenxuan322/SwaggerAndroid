@@ -9,12 +9,12 @@ import android.widget.Toast;
 
 import com.friend.swagger.R;
 
-public class UserDeatailActivity extends AppCompatActivity {
+public class NearbyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_deatail);
+        setContentView(R.layout.activity_nearby);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标

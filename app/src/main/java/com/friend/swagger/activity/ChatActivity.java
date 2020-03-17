@@ -198,8 +198,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
      * 头部视图点击事件
      */
     private void userDetailListener() {
+        Intent userDetailIntent = new Intent(ChatActivity.this, UserDeatailActivity.class);
+        startActivity(userDetailIntent);
         drawerLayout.closeDrawer(GravityCompat.START);
-        Toast.makeText(ChatActivity.this, "header", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -293,7 +294,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nearby:
-                Toast.makeText(this, "nearby", Toast.LENGTH_SHORT).show();
+                Intent nearbyIntent = new Intent(ChatActivity.this, NearbyActivity.class);
+                startActivity(nearbyIntent);
                 break;
             case R.id.group_chat:
                 Toast.makeText(this, "groupChat", Toast.LENGTH_SHORT).show();
