@@ -305,7 +305,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(createGroupIntent);
                 break;
             case R.id.contacts:
-                Toast.makeText(this, "contacts", Toast.LENGTH_SHORT).show();
+                Intent contactsIntent = new Intent(ChatActivity.this, ContactsActivity.class);
+                startActivity(contactsIntent);
                 break;
             case R.id.settings:
                 Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
