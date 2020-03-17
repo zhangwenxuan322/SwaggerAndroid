@@ -309,7 +309,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(contactsIntent);
                 break;
             case R.id.settings:
-                Toast.makeText(this, "settings", Toast.LENGTH_SHORT).show();
+                Intent settingsIntent = new Intent(ChatActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 break;
             case R.id.logout:
                 userApi.logout(userProfile.getUserLoginInfoId()).enqueue(new Callback<Map<String, Object>>() {
