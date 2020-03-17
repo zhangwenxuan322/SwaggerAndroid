@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
+import io.rong.imkit.userInfoCache.RongUserInfoManager;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
@@ -245,6 +246,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                         return userInfo;
                     }
                 }, true);
+                // 清除缓存
+//                RongUserInfoManager.getInstance().uninit();
                 initFragment();
             }
 
@@ -298,7 +301,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(nearbyIntent);
                 break;
             case R.id.group_chat:
-                Toast.makeText(this, "groupChat", Toast.LENGTH_SHORT).show();
+                Intent createGroupIntent = new Intent(ChatActivity.this, CreateGroupActivity.class);
+                startActivity(createGroupIntent);
                 break;
             case R.id.contacts:
                 Toast.makeText(this, "contacts", Toast.LENGTH_SHORT).show();

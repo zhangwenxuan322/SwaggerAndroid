@@ -8,7 +8,7 @@
         <item
             android:id="@+id/group_chat"
             android:icon="@drawable/ic_chat"
-            android:title="新的群聊" />
+            android:title="创建群聊" />
         <item
             android:id="@+id/contacts"
             android:icon="@drawable/ic_people"
