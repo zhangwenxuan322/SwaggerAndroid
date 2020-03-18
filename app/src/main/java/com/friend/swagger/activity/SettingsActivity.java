@@ -2,6 +2,7 @@ package com.friend.swagger.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class SettingsActivity extends AppCompatActivity {
     private RecyclerView settingsRecyclerView;
-    private RecyclerView.Adapter settingsAdapter;
+    private SettingsAdapter settingsAdapter;
     private RecyclerView.LayoutManager settingsLayoutManager;
 
     @Override
@@ -39,6 +40,14 @@ public class SettingsActivity extends AppCompatActivity {
         settingsRecyclerView.setLayoutManager(settingsLayoutManager);
         settingsAdapter = new SettingsAdapter(characterList);
         settingsRecyclerView.setAdapter(settingsAdapter);
+        settingsRecyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
+        settingsAdapter.setSettingsItemClickListener(new SettingsAdapter.OnSettingsItemClickListener() {
+            @Override
+            public void onSettingsItemClick(int position) {
+                Toast.makeText(SettingsActivity.this, String.valueOf(characterList.get(position)), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initToolbar() {

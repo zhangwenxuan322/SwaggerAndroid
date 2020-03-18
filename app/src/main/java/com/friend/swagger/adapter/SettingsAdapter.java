@@ -18,13 +18,32 @@ import androidx.recyclerview.widget.RecyclerView;
  **/
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.SettingsViewHolder> {
     private List<Integer> mDataset;
+    //声明自定义的监听接口
+    private static OnSettingsItemClickListener onSettingsItemClickListener;
+
+    public interface OnSettingsItemClickListener {
+        // RecyclerView的点击事件，将信息回调给view
+        void onSettingsItemClick(int position);
+    }
+
+    public void setSettingsItemClickListener(OnSettingsItemClickListener listener) {
+        onSettingsItemClickListener = listener;
+    }
 
     public static class SettingsViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         public TextView textView;
+
         public SettingsViewHolder(View v) {
             super(v);
             textView = v.findViewById(R.id.tv1);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onSettingsItemClickListener != null) {
+                        onSettingsItemClickListener.onSettingsItemClick(getAdapterPosition());
+                    }
+                }
+            });
         }
     }
 
@@ -35,8 +54,9 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
     @NonNull
     @Override
     public SettingsAdapter.SettingsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        SettingsViewHolder vh = new SettingsViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_test, parent, false));
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.settings_item, parent, false);
+        SettingsViewHolder vh = new SettingsViewHolder(view);
         return vh;
     }
 
