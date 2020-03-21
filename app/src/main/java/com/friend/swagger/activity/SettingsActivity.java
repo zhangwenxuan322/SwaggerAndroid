@@ -35,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         optionList.add("聊天背景");
         optionList.add("清除缓存");
         optionList.add("清理聊天记录");
-        settingsRecyclerView = (RecyclerView) findViewById(R.id.settings_recycler);
+        settingsRecyclerView = findViewById(R.id.settings_recycler);
         settingsRecyclerView.setHasFixedSize(true);
         settingsLayoutManager = new LinearLayoutManager(this);
         settingsRecyclerView.setLayoutManager(settingsLayoutManager);
