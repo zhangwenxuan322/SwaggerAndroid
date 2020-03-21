@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @Date 2020-03-18 10:02
  **/
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.SettingsViewHolder> {
-    private List<Integer> mDataset;
+    private List<String> mDataset;
     //声明自定义的监听接口
     private static OnSettingsItemClickListener onSettingsItemClickListener;
 
@@ -35,7 +35,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
 
         public SettingsViewHolder(View v) {
             super(v);
-            textView = v.findViewById(R.id.tv1);
+            textView = v.findViewById(R.id.settings_option);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -47,7 +47,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
         }
     }
 
-    public SettingsAdapter(List<Integer> myDataset) {
+    public SettingsAdapter(List<String> myDataset) {
         mDataset = myDataset;
     }
 
@@ -56,13 +56,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.Settin
     public SettingsAdapter.SettingsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.settings_item, parent, false);
-        SettingsViewHolder vh = new SettingsViewHolder(view);
-        return vh;
+        return new SettingsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SettingsViewHolder holder, int position) {
-        holder.textView.setText(String.valueOf(mDataset.get(position)));
+        holder.textView.setText(mDataset.get(position));
     }
 
     @Override

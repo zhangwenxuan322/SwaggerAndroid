@@ -30,22 +30,23 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        List<Integer> characterList = new ArrayList<>();
-        for (int c = 0; c <= 100; c++) {
-            characterList.add(c);
-        }
+        List<String> optionList = new ArrayList<>();
+        optionList.add("安全与隐私");
+        optionList.add("聊天背景");
+        optionList.add("清除缓存");
+        optionList.add("清理聊天记录");
         settingsRecyclerView = (RecyclerView) findViewById(R.id.settings_recycler);
         settingsRecyclerView.setHasFixedSize(true);
         settingsLayoutManager = new LinearLayoutManager(this);
         settingsRecyclerView.setLayoutManager(settingsLayoutManager);
-        settingsAdapter = new SettingsAdapter(characterList);
+        settingsAdapter = new SettingsAdapter(optionList);
         settingsRecyclerView.setAdapter(settingsAdapter);
         settingsRecyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.VERTICAL));
         settingsAdapter.setSettingsItemClickListener(new SettingsAdapter.OnSettingsItemClickListener() {
             @Override
             public void onSettingsItemClick(int position) {
-                Toast.makeText(SettingsActivity.this, String.valueOf(characterList.get(position)), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsActivity.this, optionList.get(position), Toast.LENGTH_SHORT).show();
             }
         });
     }
