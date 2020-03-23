@@ -57,14 +57,18 @@ public interface UserApi {
      * @param account
      * @param password
      * @param ip
-     * @param place
+     * @param lon
+     * @param lat
+     * @param device
      * @return
      */
     @GET("user/auth")
     Call<Map<String, Object>> userLogin(@Query("account") String account,
                                         @Query("password") String password,
                                         @Query("ip") String ip,
-                                        @Query("place") String place);
+                                        @Query("long") Double lon,
+                                        @Query("lat") Double lat,
+                                        @Query("device") String device);
 
     /**
      * 修改密码

@@ -46,8 +46,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginBtn;
     // api
     private UserApi userApi;
-    // 位置信息
-    private String place = "";
+    // 经纬度
+    private Double lon;
+    private Double lat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,9 +87,11 @@ public class LoginActivity extends AppCompatActivity {
                         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 255);
                     } else {
                         LocationUtil.initLocation(LoginActivity.this);
-                        place = "lat:" + String.format("%.2f", LocationUtil.latitude) + "lon:" + String.format("%.2f", LocationUtil.longitude);
+                        lon = LocationUtil.longitude;
+                        lat = LocationUtil.latitude;
                     }
-                    userApi.userLogin(account, password, SystemUtil.getIpAddressString(), place).enqueue(new Callback<Map<String, Object>>() {
+                    String device = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+                    userApi.userLogin(account, password, SystemUtil.getIpAddressString(), lon, lat, device).enqueue(new Callback<Map<String, Object>>() {
                         @Override
                         public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                             Map<String, Object> map = response.body();
