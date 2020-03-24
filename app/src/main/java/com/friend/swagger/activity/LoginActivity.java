@@ -106,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
                                 intent.putExtra(ChatActivity.EXTRA_ACCOUNT, account);
                                 intent.putExtra(ChatActivity.EXTRA_TOKEN, token);
+                                intent.putExtra(ChatActivity.EXTRA_LON, lon);
+                                intent.putExtra(ChatActivity.EXTRA_LAT, lat);
                                 startActivity(intent);
                                 finish();
                             } else if (map.get("message").toString().equals(Constant.WRONG_PASSWORD)) {

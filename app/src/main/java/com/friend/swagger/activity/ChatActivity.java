@@ -43,9 +43,13 @@ import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static final String EXTRA_ACCOUNT =
-            "indi.friend.swagger.EXTRA_ACCOUNT";
+            "indi.friend.swagger.ChatActivity.EXTRA_ACCOUNT";
     public static final String EXTRA_TOKEN =
-            "indi.friend.swagger.EXTRA_TOKEN";
+            "indi.friend.swagger.ChatActivity.EXTRA_TOKEN";
+    public static final String EXTRA_LON =
+            "indi.friend.swagger.ChatActivity.EXTRA_LON";
+    public static final String EXTRA_LAT =
+            "indi.friend.swagger.ChatActivity.EXTRA_LAT";
     private FloatingActionButton startChatBtn;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -289,6 +293,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.nearby:
                 Intent nearbyIntent = new Intent(ChatActivity.this, NearbyActivity.class);
+                nearbyIntent.putExtra(NearbyActivity.EXTRA_LON, intent.getDoubleExtra(EXTRA_LON, 0.0));
+                nearbyIntent.putExtra(NearbyActivity.EXTRA_LAT, intent.getDoubleExtra(EXTRA_LAT, 0.0));
                 startActivity(nearbyIntent);
                 break;
             case R.id.group_chat:

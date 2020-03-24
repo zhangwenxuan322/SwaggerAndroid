@@ -23,11 +23,26 @@
             android:layout_height="wrap_content"
             android:text="用户名" />
 
-        <TextView
-            android:id="@+id/nearby_distance"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="距离" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距离：" />
+
+            <TextView
+                android:id="@+id/nearby_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="千米" />
+        </LinearLayout>
 
     </LinearLayout>
 
