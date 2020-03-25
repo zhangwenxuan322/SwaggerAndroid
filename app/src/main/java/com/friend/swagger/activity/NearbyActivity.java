@@ -23,6 +23,8 @@ import com.friend.swagger.entity.NearbyUser;
 import java.util.List;
 
 public class NearbyActivity extends AppCompatActivity {
+    public static final String EXTRA_ID =
+            "indi.friend.swagger.NearbyActivity.EXTRA_ID";
     public static final String EXTRA_LON =
             "indi.friend.swagger.NearbyActivity.EXTRA_LON";
     public static final String EXTRA_LAT =
@@ -52,12 +54,24 @@ public class NearbyActivity extends AppCompatActivity {
     private void initRecyclerView() {
         Double lon = intent.getDoubleExtra(EXTRA_LON, 0.0);
         Double lat = intent.getDoubleExtra(EXTRA_LAT, 0.0);
+        String id = String.valueOf(intent.getIntExtra(EXTRA_ID, 0));
         nearbyApi.getNearbyUsers(lon, lat, limit).enqueue(new Callback<List<NearbyUser>>() {
             @Override
             public void onResponse(Call<List<NearbyUser>> call, Response<List<NearbyUser>> response) {
                 List<NearbyUser> nearbyList = response.body();
-                if (nearbyList == null)
+                if (nearbyList == null) {
                     Toast.makeText(NearbyActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // 从列表中删除正在使用的用户
+                int index = 0;
+                for (NearbyUser nearbyUser : nearbyList) {
+                    if (nearbyUser.getNearbyId().equals(id)) {
+                        index = nearbyList.indexOf(nearbyUser);
+                        break;
+                    }
+                }
+                nearbyList.remove(nearbyList.get(index));
                 nearbyRecyclerView = findViewById(R.id.nearby_recycler);
                 nearbyRecyclerView.setHasFixedSize(true);
                 nearbyLayoutManager = new LinearLayoutManager(NearbyActivity.this);

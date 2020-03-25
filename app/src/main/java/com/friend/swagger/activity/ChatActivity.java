@@ -129,6 +129,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         if (response.body().get("code").equals("200")) {
             LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
             userProfile = new UserProfile();
+            userProfile.setUserId(new Double(map.get("userId").toString()).intValue());
             userProfile.setUserName(String.valueOf(map.get("userName")));
             userProfile.setUserSex(String.valueOf(map.get("userSex")));
             userProfile.setUserPhone(String.valueOf(map.get("userPhone")));
@@ -295,6 +296,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 Intent nearbyIntent = new Intent(ChatActivity.this, NearbyActivity.class);
                 nearbyIntent.putExtra(NearbyActivity.EXTRA_LON, intent.getDoubleExtra(EXTRA_LON, 0.0));
                 nearbyIntent.putExtra(NearbyActivity.EXTRA_LAT, intent.getDoubleExtra(EXTRA_LAT, 0.0));
+                nearbyIntent.putExtra(NearbyActivity.EXTRA_ID, userProfile.getUserId());
                 startActivity(nearbyIntent);
                 break;
             case R.id.group_chat:
