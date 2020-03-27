@@ -12,7 +12,6 @@ import com.friend.swagger.R;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.entity.NearbyUser;
-import com.friend.swagger.entity.UserProfile;
 
 import java.io.InputStream;
 import java.util.List;

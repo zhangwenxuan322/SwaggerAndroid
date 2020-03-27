@@ -13,10 +13,35 @@
         android:layout_marginTop="0dp"
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="个人信息"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="个人信息"
         app:titleTextColor="@color/white" />
 
+    <ImageView
+        android:id="@+id/user_portrait"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="UserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_portrait" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/detail_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
