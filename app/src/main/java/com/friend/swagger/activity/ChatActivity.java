@@ -197,6 +197,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
      */
     private void userDetailListener() {
         Intent userDetailIntent = new Intent(ChatActivity.this, UserDeatailActivity.class);
+        userDetailIntent.putExtra(UserDeatailActivity.EXTRA_ID, userProfile.getUserId());
         startActivity(userDetailIntent);
     }
 

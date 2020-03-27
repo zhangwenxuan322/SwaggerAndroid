@@ -90,11 +90,11 @@ public class ExampleUnitTest {
         System.out.println(response.body());
     }
 
-    @Test
-    public void userLoginTest() throws IOException {
-        Response<Map<String, Object>> response = userApi.userLogin("15150576095", "888", "111.111.111.111", "上海").execute();
-        System.out.println(response.body());
-    }
+//    @Test
+//    public void userLoginTest() throws IOException {
+//        Response<Map<String, Object>> response = userApi.userLogin("15150576095", "888", "111.111.111.111", "上海").execute();
+//        System.out.println(response.body());
+//    }
 
     @Test
     public void ipTest() {
