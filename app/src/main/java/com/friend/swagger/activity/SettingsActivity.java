@@ -64,9 +64,6 @@ public class SettingsActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
-            case R.id.user_detail:
-                Toast.makeText(this, "deatil", Toast.LENGTH_SHORT).show();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
