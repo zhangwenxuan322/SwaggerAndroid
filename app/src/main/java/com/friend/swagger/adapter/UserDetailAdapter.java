@@ -57,7 +57,7 @@ public class UserDetailAdapter extends RecyclerView.Adapter<UserDetailAdapter.Us
         detailTitles.add("SwaggerId");
         detailTitles.add("手机号");
         detailTitles.add("性别");
-        detailTitles.add("签名");
+        detailTitles.add("个性签名");
     }
 
     @NonNull
