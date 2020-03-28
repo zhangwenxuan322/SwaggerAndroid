@@ -1,5 +1,6 @@
 package com.friend.swagger.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -10,19 +11,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.friend.swagger.R;
 import com.friend.swagger.adapter.UserDetailAdapter;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
 import com.google.gson.internal.LinkedTreeMap;
+import com.tamsiree.rxtool.RxPermissionsTool;
+import com.tamsiree.rxtool.RxPhotoTool;
+import com.tamsiree.rxui.view.dialog.RxDialogChooseImage;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -50,6 +59,67 @@ public class UserDeatailActivity extends AppCompatActivity {
         initToolbar();
         initRecyclerView();
         getUserData();
+        initProtraitSelector();
+    }
+
+    /**
+     * 初始化头像选择器
+     */
+    private void initProtraitSelector() {
+        userPortrait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RxDialogChooseImage dialogChooseImage = new RxDialogChooseImage(UserDeatailActivity.this);
+                dialogChooseImage.show();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case RxPhotoTool.GET_IMAGE_FROM_PHONE://选择相册之后的处理
+                if (resultCode == RESULT_OK) {
+                    dynamicPermission();
+                    RxPhotoTool.cropImage(UserDeatailActivity.this, data.getData());// 裁剪图片
+                }
+                break;
+            case RxPhotoTool.GET_IMAGE_BY_CAMERA://选择照相机之后的处理
+                if (resultCode == RESULT_OK) {
+                    dynamicPermission();
+                    /* data.getExtras().get("data");*/
+                    RxPhotoTool.cropImage(UserDeatailActivity.this, RxPhotoTool.imageUriFromCamera);// 裁剪图片
+                }
+                break;
+            case RxPhotoTool.CROP_IMAGE://普通裁剪后的处理
+                RequestOptions options = new RequestOptions()
+                        .placeholder(R.drawable.swagger_logo)
+                        //异常占位图(当加载异常的时候出现的图片)
+                        .error(R.drawable.swagger_logo)
+                        //禁止Glide硬盘缓存缓存
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+
+                Glide.with(UserDeatailActivity.this).
+                        load(RxPhotoTool.cropImageUri).
+                        apply(options).
+                        thumbnail(0.5f).
+                        into(userPortrait);
+//                Toast.makeText(RegisterActivity.this, RxPhotoTool.getRealFilePath(RegisterActivity.this, RxPhotoTool.cropImageUri), Toast.LENGTH_SHORT).show();
+//                RequestUpdateAvatar(new File(RxPhotoTool.getRealFilePath(mContext, RxPhotoTool.cropImageUri)));
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * 动态权限获取
+     */
+    private void dynamicPermission() {
+        RxPermissionsTool.with(UserDeatailActivity.this).addPermission("android.permission.CAMERA").initPermission();
+        RxPermissionsTool.with(UserDeatailActivity.this).addPermission("android.permission.READ_EXTERNAL_STORAGE").initPermission();
+        RxPermissionsTool.with(UserDeatailActivity.this).addPermission("android.permission.WRITE_EXTERNAL_STORAGE").initPermission();
     }
 
     private void getUserData() {
