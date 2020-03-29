@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.SettingsActivity"></activity>
+        <activity android:name=".activity.ModifyUserDetailActivity"></activity>
+        <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.ContactsActivity" />
         <activity android:name=".activity.CreateGroupActivity" />
         <activity android:name=".activity.NearbyActivity" />

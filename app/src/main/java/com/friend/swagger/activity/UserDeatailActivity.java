@@ -185,7 +185,8 @@ public class UserDeatailActivity extends AppCompatActivity {
         userDetailAdapter.setOnUserDetailClickListener(new UserDetailAdapter.OnUserDetailClickListener() {
             @Override
             public void onUserDetailItemClick(int position) {
-                Toast.makeText(UserDeatailActivity.this, detailInfos.get(position), Toast.LENGTH_SHORT).show();
+                Intent modifyIntent = new Intent(UserDeatailActivity.this, ModifyUserDetailActivity.class);
+                startActivity(modifyIntent);
             }
         });
     }
