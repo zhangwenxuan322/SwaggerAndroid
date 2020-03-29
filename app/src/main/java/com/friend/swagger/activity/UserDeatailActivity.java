@@ -185,8 +185,18 @@ public class UserDeatailActivity extends AppCompatActivity {
         userDetailAdapter.setOnUserDetailClickListener(new UserDetailAdapter.OnUserDetailClickListener() {
             @Override
             public void onUserDetailItemClick(int position) {
-                Intent modifyIntent = new Intent(UserDeatailActivity.this, ModifyUserDetailActivity.class);
-                startActivity(modifyIntent);
+                if ((position == 0 && !detailInfos.get(position).equals("未设置")) || position == 1) {
+                    // Do Nothing!
+                } else {
+                    Intent modifyIntent = new Intent(UserDeatailActivity.this, ModifyUserDetailActivity.class);
+                    if (position == 0)
+                        modifyIntent.putExtra(ModifyUserDetailActivity.EXTRA_SWAGGER_ID, detailInfos.get(position));
+                    else if (position == 2)
+                        modifyIntent.putExtra(ModifyUserDetailActivity.EXTRA_SEX, detailInfos.get(position));
+                    else if (position == 3)
+                        modifyIntent.putExtra(ModifyUserDetailActivity.EXTRA_BIO, detailInfos.get(position));
+                    startActivity(modifyIntent);
+                }
             }
         });
     }
