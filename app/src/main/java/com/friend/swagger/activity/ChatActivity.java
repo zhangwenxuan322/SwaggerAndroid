@@ -80,6 +80,13 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         initView();
         RongIM.getInstance().setConversationClickListener(new MyConversationClickListener());
         dataInsert();
+        startChatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addIntent = new Intent(ChatActivity.this, AllAddActivity.class);
+                startActivity(addIntent);
+            }
+        });
     }
 
     /**
