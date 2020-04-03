@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.AllAddActivity"></activity>
+        <activity android:name=".activity.ChatUserDeatailActivity"></activity>
+        <activity android:name=".activity.AllAddActivity" />
         <activity android:name=".activity.ModifyUserDetailActivity" />
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.ContactsActivity" />

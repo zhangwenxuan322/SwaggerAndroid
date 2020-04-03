@@ -1,6 +1,7 @@
 package com.friend.swagger.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -25,7 +26,8 @@ public class MyConversationClickListener implements RongIM.ConversationClickList
      */
     @Override
     public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo user, String targetId) {
-        Toast.makeText(context, "test", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, ChatUserDeatailActivity.class);
+        context.startActivity(intent);
         return true;
     }
 
