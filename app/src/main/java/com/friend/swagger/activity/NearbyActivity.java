@@ -68,6 +68,7 @@ public class NearbyActivity extends AppCompatActivity {
     RadioButton male;
     RadioButton female;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
