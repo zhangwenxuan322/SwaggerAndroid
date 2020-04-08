@@ -16,6 +16,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -67,6 +69,10 @@ public class NearbyActivity extends AppCompatActivity {
     // 性别选择
     RadioButton male;
     RadioButton female;
+    // 昵称
+    String name;
+    // 性别
+    String sex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +85,16 @@ public class NearbyActivity extends AppCompatActivity {
         nameEditor = findViewById(R.id.name_editor);
         male = findViewById(R.id.male);
         female = findViewById(R.id.female);
+        sex = "男";
+        name = "";
         seekBar.getThumb().setColorFilter(Color.parseColor("#2c3e50"), PorterDuff.Mode.SRC_ATOP);
         seekBar.getProgressDrawable().setColorFilter(Color.parseColor("#2c3e50"), PorterDuff.Mode.SRC_ATOP);
         initToolbar();
         initRecyclerView();
-        setSeekbarListener();
+        setListener();
     }
 
-    private void setSeekbarListener() {
+    private void setListener() {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -101,7 +109,38 @@ public class NearbyActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                requestNearbyUsers(lon, lat, id);
+                requestNearbyUsers(lon, lat, id, name, sex);
+            }
+        });
+        male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "男";
+                requestNearbyUsers(lon, lat, id, name, sex);
+            }
+        });
+        female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sex = "女";
+                requestNearbyUsers(lon, lat, id, name, sex);
+            }
+        });
+        nameEditor.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                name = s.toString();
+                requestNearbyUsers(lon, lat, id, name, sex);
             }
         });
     }
@@ -126,11 +165,11 @@ public class NearbyActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-        requestNearbyUsers(lon, lat, id);
+        requestNearbyUsers(lon, lat, id, name, sex);
     }
 
-    private void requestNearbyUsers(Double lon, Double lat, String id) {
-        nearbyApi.getNearbyUsers(lon, lat, limit).enqueue(new Callback<List<NearbyUser>>() {
+    private void requestNearbyUsers(Double lon, Double lat, String id, String uname, String usex) {
+        nearbyApi.getNearbyUsers(lon, lat, limit, uname, usex).enqueue(new Callback<List<NearbyUser>>() {
             @Override
             public void onResponse(Call<List<NearbyUser>> call, Response<List<NearbyUser>> response) {
                 nearbyList.clear();
@@ -147,7 +186,8 @@ public class NearbyActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                list.remove(list.get(index));
+                if (index != 0)
+                    list.remove(list.get(index));
                 nearbyList.addAll(list);
                 nearbyAdapter.notifyDataSetChanged();
             }

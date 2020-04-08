@@ -21,5 +21,7 @@ public interface NearbyApi {
     @GET("nearby/list")
     Call<List<NearbyUser>> getNearbyUsers(@Query("lon") Double lon,
                                           @Query("lat") Double lat,
-                                          @Query("limit") Double limit);
+                                          @Query("limit") Double limit,
+                                          @Query("name") String name,
+                                          @Query("sex") String sex);
 }
