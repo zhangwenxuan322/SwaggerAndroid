@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.friend.swagger.common.SystemUtil;
+
 import io.rong.imkit.RongIM;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
@@ -27,6 +29,8 @@ public class MyConversationClickListener implements RongIM.ConversationClickList
     @Override
     public boolean onUserPortraitClick(Context context, Conversation.ConversationType conversationType, UserInfo user, String targetId) {
         Intent intent = new Intent(context, ChatUserDeatailActivity.class);
+        int id = SystemUtil.getNum(user.getUserId());
+        intent.putExtra(ChatUserDeatailActivity.EXTRA_ID, id);
         context.startActivity(intent);
         return true;
     }

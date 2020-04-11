@@ -121,6 +121,7 @@ public class AllAddActivity extends AppCompatActivity {
             @Override
             public void onAddItemClick(int position) {
                 Intent intent = new Intent(AllAddActivity.this, ChatUserDeatailActivity.class);
+                intent.putExtra(ChatUserDeatailActivity.EXTRA_ID, list.get(position).getUserId());
                 startActivity(intent);
             }
         });
