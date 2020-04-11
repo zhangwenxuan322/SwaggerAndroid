@@ -3,11 +3,15 @@ package com.friend.swagger.activity;
 import androidx.annotation.CallSuper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.MenuItem;
@@ -19,7 +23,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.friend.swagger.R;
-import com.friend.swagger.adapter.NearbyAdapter;
+import com.friend.swagger.adapter.AddAdapter;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.PhoneUtil;
@@ -35,6 +39,10 @@ public class AllAddActivity extends AppCompatActivity {
     private Button searchButton;
     private UserApi userApi;
     private List<UserProfile> list;
+    // recycler
+    private RecyclerView addRecyclerView;
+    private AddAdapter addAdapter;
+    private RecyclerView.LayoutManager addLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +50,12 @@ public class AllAddActivity extends AppCompatActivity {
         editText = findViewById(R.id.add_edit_text);
         searchButton = findViewById(R.id.search_btn);
         userApi = RetrofitService.createService(UserApi.class);
-        list = new ArrayList<>();
         initToolbar();
+        initRecyclerView();
+        onClicklistener();
+    }
+
+    private void onClicklistener() {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +87,7 @@ public class AllAddActivity extends AppCompatActivity {
                                 userProfile.setUserLoginInfoId(new Double(String.valueOf(map.get("userLoginInfoId"))).intValue());
                                 list.add(userProfile);
                             }
-                            Toast.makeText(AllAddActivity.this, list.toString(), Toast.LENGTH_SHORT).show();
+                            addAdapter.notifyDataSetChanged();
                         }
 
                         @Override
@@ -96,6 +108,22 @@ public class AllAddActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
+        list = new ArrayList<>();
+        addRecyclerView = findViewById(R.id.add_recycler);
+        addRecyclerView.setHasFixedSize(true);
+        addLayoutManager = new LinearLayoutManager(AllAddActivity.this);
+        addRecyclerView.setLayoutManager(addLayoutManager);
+        addAdapter = new AddAdapter(list);
+        addRecyclerView.setAdapter(addAdapter);
+        addRecyclerView.addItemDecoration(new DividerItemDecoration(AllAddActivity.this,
+                DividerItemDecoration.VERTICAL));
+        addAdapter.setAddItemClickListener(new AddAdapter.OnAddItemClickListener() {
+            @Override
+            public void onAddItemClick(int position) {
+                Intent intent = new Intent(AllAddActivity.this, ChatUserDeatailActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

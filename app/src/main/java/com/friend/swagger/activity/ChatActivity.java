@@ -137,6 +137,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
             userProfile = new UserProfile();
             userProfile.setUserId(new Double(map.get("userId").toString()).intValue());
+            Constant.USER_ID = userProfile.getUserId();
             userProfile.setUserName(String.valueOf(map.get("userName")));
             userProfile.setUserSex(String.valueOf(map.get("userSex")));
             userProfile.setUserPhone(String.valueOf(map.get("userPhone")));

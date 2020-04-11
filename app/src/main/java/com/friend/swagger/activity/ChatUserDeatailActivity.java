@@ -5,8 +5,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.friend.swagger.R;
+import com.friend.swagger.common.Constant;
 
 public class ChatUserDeatailActivity extends AppCompatActivity {
 
