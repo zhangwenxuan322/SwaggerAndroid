@@ -29,17 +29,7 @@ public class ConversationActivity extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 break;
-            case R.id.user_detail:
-                Intent intent = new Intent(ConversationActivity.this, ChatUserDeatailActivity.class);
-                startActivity(intent);
-                break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.conversation, menu);
-        return true;
     }
 }
