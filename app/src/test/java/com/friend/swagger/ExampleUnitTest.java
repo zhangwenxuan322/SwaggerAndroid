@@ -3,11 +3,13 @@ package com.friend.swagger;
 import android.location.Location;
 
 import com.friend.swagger.activity.LoginActivity;
+import com.friend.swagger.api.FriendsApi;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.api.VerCodeApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.LocationUtil;
 import com.friend.swagger.common.SystemUtil;
+import com.friend.swagger.entity.FriendsManager;
 import com.friend.swagger.entity.UserProfile;
 import com.friend.swagger.entity.VerCode;
 import com.google.gson.internal.LinkedTreeMap;
@@ -38,6 +40,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     private UserApi userApi;
     private VerCodeApi verCodeApi;
+    private FriendsApi friendsApi;
 
     @Before
     public void retrofit_build() {
@@ -55,6 +58,7 @@ public class ExampleUnitTest {
                 .build();
         userApi = retrofit.create(UserApi.class);
         verCodeApi = retrofit.create(VerCodeApi.class);
+        friendsApi = retrofit.create(FriendsApi.class);
     }
 
     @Test
@@ -129,5 +133,12 @@ public class ExampleUnitTest {
     public void getNumTest() throws IOException {
         int a = SystemUtil.getNum("androidtest45");
         System.out.println(a);
+    }
+
+    @Test
+    public void friendFilterTest() throws IOException {
+        Response<Map<String, Object>> response = friendsApi.friendFilter(13, 14).execute();
+        LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("friend");
+        System.out.println(map);
     }
 }
