@@ -66,7 +66,7 @@ public class ExampleUnitTest {
         Call<Map<String, Object>> call = userApi.getUserByPhone("15150576095");
         Response<Map<String, Object>> response = call.execute();
         if (response.body().get("code").equals("200")) {
-            LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)response.body().get("userProfile");
+            LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
             System.out.println(map.toString());
         }
 
@@ -112,7 +112,7 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void downloadPortraitTest() throws IOException{
+    public void downloadPortraitTest() throws IOException {
         Response<ResponseBody> responseBodyResponse = userApi.downloadPortrait("androidtest1.png").execute();
         System.out.println(responseBodyResponse.body());
     }
@@ -140,5 +140,13 @@ public class ExampleUnitTest {
         Response<Map<String, Object>> response = friendsApi.friendFilter(13, 14).execute();
         LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("friend");
         System.out.println(map);
+    }
+
+    @Test
+    public void friendMakingTest() throws IOException {
+        Response<Map<String, String>> response = friendsApi.friendMaking(
+                new FriendsManager(0, 13, 14, "", "",
+                        null, null)).execute();
+        System.out.println(response.body());
     }
 }
