@@ -101,12 +101,8 @@ public class NearbyActivity extends AppCompatActivity {
                 seekbarValueText.setText(Integer.toString(progress));
                 limit = new Double(progress);
             }
-
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
+            public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 requestNearbyUsers(lon, lat, id, name, sex);
@@ -128,15 +124,9 @@ public class NearbyActivity extends AppCompatActivity {
         });
         nameEditor.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
             @Override
             public void afterTextChanged(Editable s) {
                 name = s.toString();
@@ -161,8 +151,10 @@ public class NearbyActivity extends AppCompatActivity {
         nearbyAdapter.setNearbyItemClickListener(new NearbyAdapter.OnNearbyItemClickListener() {
             @Override
             public void onNearbyItemClick(int position) {
-                Toast.makeText(NearbyActivity.this, nearbyList.get(position).toString(),
-                        Toast.LENGTH_SHORT).show();
+                NearbyUser nearbyUser = nearbyList.get(position);
+                Intent intent = new Intent(NearbyActivity.this, ChatUserDeatailActivity.class);
+                intent.putExtra(ChatUserDeatailActivity.EXTRA_ID, Integer.parseInt(nearbyUser.getNearbyId()));
+                startActivity(intent);
             }
         });
         requestNearbyUsers(lon, lat, id, name, sex);
