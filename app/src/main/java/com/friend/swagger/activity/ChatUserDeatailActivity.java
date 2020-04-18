@@ -11,11 +11,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.friend.swagger.R;
+import com.friend.swagger.api.FriendsApi;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
@@ -28,11 +31,16 @@ import java.util.Map;
 public class ChatUserDeatailActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
             "indi.friend.swagger.ChatUserDeatailActivity.EXTRA_ID";
+    private int friendId;
     private UserProfile userProfile;
     private UserApi userApi;
+    private FriendsApi friendsApi;
     private ImageView portrait;
     private TextView userName;
     private TextView userBio;
+    private Button requestBtn;
+    private Button chatBtn;
+    private Button deleteBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +48,50 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_user_deatail);
         setTitle("用户信息");
         userApi = RetrofitService.createService(UserApi.class);
+        friendsApi = RetrofitService.createService(FriendsApi.class);
         portrait = findViewById(R.id.user_portrait);
         userName = findViewById(R.id.user_name);
         userBio = findViewById(R.id.user_bio);
+        requestBtn = findViewById(R.id.request_btn);
+        chatBtn = findViewById(R.id.chat_btn);
+        deleteBtn = findViewById(R.id.delete_btn);
+        friendId = getIntent().getIntExtra(EXTRA_ID, 0);
+        friendRelationDeal();
         initToolbar();
         initUserProfile();
     }
 
+    private void friendRelationDeal() {
+        if (Constant.USER_ID == friendId) {
+            requestBtn.setVisibility(View.GONE);
+            chatBtn.setVisibility(View.GONE);
+            deleteBtn.setVisibility(View.GONE);
+            return;
+        }
+        friendsApi.friendFilter(Constant.USER_ID, friendId).enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.body() == null)
+                    Toast.makeText(ChatUserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("friend");
+                if (map == null)
+                    deleteBtn.setVisibility(View.GONE);
+                else {
+                    requestBtn.setVisibility(View.GONE);
+                    chatBtn.setText("开始聊天");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(ChatUserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void initUserProfile() {
         userProfile = new UserProfile();
-        int userId = getIntent().getIntExtra(EXTRA_ID, 0);
-        userApi.getUserById(userId).enqueue(new Callback<Map<String, Object>>() {
+        userApi.getUserById(friendId).enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 if (response.body() == null) {

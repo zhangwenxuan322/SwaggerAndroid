@@ -137,7 +137,7 @@ public class ExampleUnitTest {
 
     @Test
     public void friendFilterTest() throws IOException {
-        Response<Map<String, Object>> response = friendsApi.friendFilter(13, 14).execute();
+        Response<Map<String, Object>> response = friendsApi.friendFilter(1, 2).execute();
         LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("friend");
         System.out.println(map);
     }
