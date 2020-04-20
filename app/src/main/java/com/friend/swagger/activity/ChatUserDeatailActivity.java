@@ -2,6 +2,7 @@ package com.friend.swagger.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import io.rong.imkit.RongIM;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -59,6 +60,28 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         friendRelationDeal();
         initToolbar();
         initUserProfile();
+        btnListener();
+    }
+
+    private void btnListener() {
+        requestBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        chatBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid"+friendId, "");
+            }
+        });
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     private void friendRelationDeal() {
