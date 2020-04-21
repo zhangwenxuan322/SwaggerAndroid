@@ -73,7 +73,10 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         chatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid"+friendId, "");
+                if (chatBtn.getText().equals("开始聊天"))
+                    RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid"+friendId, userProfile.getUserName());
+                else
+                    RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid"+friendId, "临时聊天");
             }
         });
         deleteBtn.setOnClickListener(new View.OnClickListener() {

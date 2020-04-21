@@ -18,6 +18,7 @@ public class ConversationActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        setTitle(getIntent().getData().getQueryParameter("title"));
     }
 
     @Override
