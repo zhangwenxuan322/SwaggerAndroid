@@ -107,6 +107,9 @@ public class UserDeatailActivity extends AppCompatActivity {
 //                Toast.makeText(RegisterActivity.this, RxPhotoTool.getRealFilePath(RegisterActivity.this, RxPhotoTool.cropImageUri), Toast.LENGTH_SHORT).show();
 //                RequestUpdateAvatar(new File(RxPhotoTool.getRealFilePath(mContext, RxPhotoTool.cropImageUri)));
                 break;
+            case 1:
+                getUserData();
+                break;
             default:
                 break;
         }
@@ -195,7 +198,7 @@ public class UserDeatailActivity extends AppCompatActivity {
                         modifyIntent.putExtra(ModifyUserDetailActivity.EXTRA_SEX, detailInfos.get(position));
                     else if (position == 3)
                         modifyIntent.putExtra(ModifyUserDetailActivity.EXTRA_BIO, detailInfos.get(position));
-                    startActivity(modifyIntent);
+                    startActivityForResult(modifyIntent, 1);
                 }
             }
         });
