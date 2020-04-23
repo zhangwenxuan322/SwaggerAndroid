@@ -1,21 +1,33 @@
 package com.friend.swagger.activity;
 
+import androidx.annotation.CallSuper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.friend.swagger.R;
+import com.friend.swagger.api.RetrofitService;
+import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.UserProfile;
+
+import java.util.Map;
 
 public class ModifyUserDetailActivity extends AppCompatActivity {
     public static final String EXTRA_SWAGGER_ID =
@@ -33,7 +45,9 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
     private RadioButton female;
     private String title = "";
     private String textHint = "";
+    private UserProfile userProfile;
     // api
+    private UserApi userApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +56,9 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
         sexGroup = findViewById(R.id.sex_group);
         male = findViewById(R.id.male);
         female = findViewById(R.id.female);
+        userProfile = new UserProfile();
+        userProfile.setUserId(Constant.USER_ID);
+        userApi = RetrofitService.createService(UserApi.class);
         initToolbar();
         initTitleAndHint();
     }
@@ -94,16 +111,62 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
     }
 
     private void saveAction() {
-        if (title.equals(swaggerIdTitle) && !"".equals(editText.getText().toString()) && editText.getText() != null) {
+        if (title.equals(swaggerIdTitle) && editText.getText() != null && !"".equals(editText.getText().toString())) {
+            // 设置SwaggerId
             String swaggerId = editText.getText().toString();
-            UserProfile userProfile = new UserProfile();
-            userProfile.setUserId(Constant.USER_ID);
             userProfile.setUserSwaggerId(swaggerId);
+            userApi.changeSwaggerId(userProfile).enqueue(new Callback<Map<String, Object>>() {
+                @Override
+                public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                    if (response.body() == null)
+                        Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModifyUserDetailActivity.this, "SwaggerId设置成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
+                @Override
+                public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                    Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                }
+            });
         } else if (title.equals(sexTitle)) {
+            // 修改性别
+            String sex;
+            if (male.isChecked()) sex = "男";
+            else sex = "女";
+            userProfile.setUserSex(sex);
+            userApi.changeSex(userProfile).enqueue(new Callback<Map<String, Object>>() {
+                @Override
+                public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                    if (response.body() == null)
+                        Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModifyUserDetailActivity.this, "性别保存成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
-        } else if (title.equals(bioTitle)) {
+                @Override
+                public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                    Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else if (title.equals(bioTitle) && editText.getText() != null && !"".equals(editText.getText().toString())) {
+            // 修改个性签名
+            String bio = editText.getText().toString();
+            userProfile.setUserBio(bio);
+            userApi.changeBio(userProfile).enqueue(new Callback<Map<String, Object>>() {
+                @Override
+                public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                    if (response.body() == null)
+                        Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ModifyUserDetailActivity.this, "个性签名保存成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
+                @Override
+                public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                    Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -111,5 +174,46 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.modify_user_detail, menu);
         return true;
+    }
+
+    /**
+     * 点击非编辑区域收起键盘
+     * 获取点击事件
+     */
+    @CallSuper
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View view = getCurrentFocus();
+            if (isShouldHideKeyBord(view, ev)) {
+                hideSoftInput(view.getWindowToken());
+                view.clearFocus();
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 判定当前是否需要隐藏
+     */
+    protected boolean isShouldHideKeyBord(View v, MotionEvent ev) {
+        if (v != null && (v instanceof EditText)) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
+            return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
+            //return !(ev.getY() > top && ev.getY() < bottom);
+        }
+        return false;
+    }
+
+    /**
+     * 隐藏软键盘
+     */
+    private void hideSoftInput(IBinder token) {
+        if (token != null) {
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 }

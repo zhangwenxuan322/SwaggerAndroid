@@ -100,6 +100,15 @@ public interface UserApi {
     Call<Map<String, Object>> changeSex(@Body UserProfile userProfile);
 
     /**
+     * 修改个性签名
+     *
+     * @param userProfile
+     * @return
+     */
+    @PUT("user/bio")
+    Call<Map<String, Object>> changeBio(@Body UserProfile userProfile);
+
+    /**
      * 上传用户头像
      *
      * @param file
