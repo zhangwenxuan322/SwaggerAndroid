@@ -14,6 +14,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.friend.swagger.R;
+import com.friend.swagger.common.Constant;
+import com.friend.swagger.entity.UserProfile;
 
 public class ModifyUserDetailActivity extends AppCompatActivity {
     public static final String EXTRA_SWAGGER_ID =
@@ -22,12 +24,16 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
             "indi.friend.swagger.ModifyUserDetailActivity.EXTRA_SEX";
     public static final String EXTRA_BIO =
             "indi.friend.swagger.ModifyUserDetailActivity.EXTRA_BIO";
+    private String swaggerIdTitle = "SwaggerId";
+    private String sexTitle = "性别";
+    private String bioTitle = "个性签名";
     private EditText editText;
     private RadioGroup sexGroup;
     private RadioButton male;
     private RadioButton female;
     private String title = "";
     private String textHint = "";
+    // api
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +50,13 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit_text);
         Intent intent = getIntent();
         if (intent.getStringExtra(EXTRA_SWAGGER_ID) != null) {
-            title = "SwaggerId";
+            title = swaggerIdTitle;
             textHint = "设置您的SwaggerId，此Id只可设置一次，由字母数字和字符组成，要求唯一";
             setTitle(title);
             editText.setHint(textHint);
             sexGroup.setVisibility(View.GONE);
         } else if (intent.getStringExtra(EXTRA_SEX) != null) {
-            title = "性别";
+            title = sexTitle;
             setTitle(title);
             editText.setVisibility(View.GONE);
             if (intent.getStringExtra(EXTRA_SEX).equals("男"))
@@ -58,7 +64,7 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
             else
                 female.setChecked(true);
         } else if (intent.getStringExtra(EXTRA_BIO) != null) {
-            title = "个性签名";
+            title = bioTitle;
             if (intent.getStringExtra(EXTRA_BIO).equals("未设置")) {
                 textHint = "记录一下心情吧！";
                 editText.setHint(textHint);
@@ -81,10 +87,24 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.save_modify:
-                Toast.makeText(this, "保存", Toast.LENGTH_SHORT).show();
+                saveAction();
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveAction() {
+        if (title.equals(swaggerIdTitle) && !"".equals(editText.getText().toString()) && editText.getText() != null) {
+            String swaggerId = editText.getText().toString();
+            UserProfile userProfile = new UserProfile();
+            userProfile.setUserId(Constant.USER_ID);
+            userProfile.setUserSwaggerId(swaggerId);
+
+        } else if (title.equals(sexTitle)) {
+
+        } else if (title.equals(bioTitle)) {
+
+        }
     }
 
     @Override

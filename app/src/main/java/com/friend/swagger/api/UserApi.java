@@ -82,6 +82,24 @@ public interface UserApi {
                                              @Query("password") String password);
 
     /**
+     * 修改SwaggerId
+     *
+     * @param userProfile
+     * @return
+     */
+    @PUT("user/swaggerId")
+    Call<Map<String, Object>> changeSwaggerId(@Body UserProfile userProfile);
+
+    /**
+     * 修改性别
+     *
+     * @param userProfile
+     * @return
+     */
+    @PUT("user/sex")
+    Call<Map<String, Object>> changeSex(@Body UserProfile userProfile);
+
+    /**
      * 上传用户头像
      *
      * @param file
