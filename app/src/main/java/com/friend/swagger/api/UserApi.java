@@ -109,6 +109,15 @@ public interface UserApi {
     Call<Map<String, Object>> changeBio(@Body UserProfile userProfile);
 
     /**
+     * 修改头像
+     *
+     * @param userProfile
+     * @return
+     */
+    @PUT("user/portraitChange")
+    Call<Map<String, Object>> changePortrait(@Body UserProfile userProfile);
+
+    /**
      * 上传用户头像
      *
      * @param file

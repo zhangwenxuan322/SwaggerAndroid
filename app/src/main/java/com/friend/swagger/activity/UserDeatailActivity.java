@@ -104,6 +104,8 @@ public class UserDeatailActivity extends AppCompatActivity {
                         apply(options).
                         thumbnail(0.5f).
                         into(userPortrait);
+                uploadPortrait();
+                changePortrait();
 //                Toast.makeText(RegisterActivity.this, RxPhotoTool.getRealFilePath(RegisterActivity.this, RxPhotoTool.cropImageUri), Toast.LENGTH_SHORT).show();
 //                RequestUpdateAvatar(new File(RxPhotoTool.getRealFilePath(mContext, RxPhotoTool.cropImageUri)));
                 break;
@@ -114,6 +116,14 @@ public class UserDeatailActivity extends AppCompatActivity {
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void uploadPortrait() {
+
+    }
+
+    private void changePortrait() {
+
     }
 
     /**

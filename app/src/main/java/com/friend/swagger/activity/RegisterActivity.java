@@ -153,6 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * 上传头像
+     *
      * @param fileName
      */
     private void uploadPortrait(String fileName) {
