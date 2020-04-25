@@ -6,6 +6,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,6 +17,7 @@ import retrofit2.Response;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,13 +32,18 @@ import com.friend.swagger.R;
 import com.friend.swagger.adapter.UserDetailAdapter;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
+import com.friend.swagger.common.Constant;
+import com.friend.swagger.common.SystemUtil;
+import com.friend.swagger.entity.UserProfile;
 import com.google.gson.internal.LinkedTreeMap;
 import com.tamsiree.rxtool.RxPermissionsTool;
 import com.tamsiree.rxtool.RxPhotoTool;
 import com.tamsiree.rxui.view.dialog.RxDialogChooseImage;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -104,8 +113,9 @@ public class UserDeatailActivity extends AppCompatActivity {
                         apply(options).
                         thumbnail(0.5f).
                         into(userPortrait);
-                uploadPortrait();
-                changePortrait();
+                String fileName = Constant.USER_ID + String.valueOf(new Date().getTime()) + ".png";
+                uploadPortrait(fileName);
+                changePortrait(fileName);
 //                Toast.makeText(RegisterActivity.this, RxPhotoTool.getRealFilePath(RegisterActivity.this, RxPhotoTool.cropImageUri), Toast.LENGTH_SHORT).show();
 //                RequestUpdateAvatar(new File(RxPhotoTool.getRealFilePath(mContext, RxPhotoTool.cropImageUri)));
                 break;
@@ -118,12 +128,52 @@ public class UserDeatailActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void uploadPortrait() {
+    private void uploadPortrait(String fileName) {
+        File file;
+        Drawable.ConstantState drawableCs = UserDeatailActivity.this.getResources().getDrawable(R.drawable.swagger_logo).getConstantState();
+        if (userPortrait.getDrawable().getConstantState().equals(drawableCs)) {
+            // 未选择图片上传默认头像
+            file = SystemUtil.drawableToFile(UserDeatailActivity.this, R.drawable.swagger_logo, "swaggerlogo");
+        } else {
+            // 选择图片后上传选中头像
+            file = new File(RxPhotoTool.getRealFilePath(UserDeatailActivity.this,
+                    RxPhotoTool.cropImageUri));
+        }
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileName, requestFile);
+        userApi.uploadPortrait(body, RequestBody.create(null, fileName))
+                .enqueue(new Callback<Map<String, Object>>() {
+                    @Override
+                    public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                        if (response.body().get("code").toString().equals("404")) {
+                            Toast.makeText(UserDeatailActivity.this, response.body().get("message").toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                        Toast.makeText(UserDeatailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
-    private void changePortrait() {
+    private void changePortrait(String fileName) {
+        UserProfile userProfile = new UserProfile();
+        userProfile.setUserId(Constant.USER_ID);
+        userProfile.setUserPortrait(fileName);
+        userApi.changePortrait(userProfile).enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                if (response.body() == null)
+                    Toast.makeText(UserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserDeatailActivity.this, "头像保存成功", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(UserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**

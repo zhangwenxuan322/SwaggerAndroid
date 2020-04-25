@@ -1,6 +1,7 @@
 package com.friend.swagger.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -206,7 +207,19 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private void userDetailListener() {
         Intent userDetailIntent = new Intent(ChatActivity.this, UserDeatailActivity.class);
         userDetailIntent.putExtra(UserDeatailActivity.EXTRA_ID, userProfile.getUserId());
-        startActivity(userDetailIntent);
+        startActivityForResult(userDetailIntent, 2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case 2:
+                dataInsert();
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
