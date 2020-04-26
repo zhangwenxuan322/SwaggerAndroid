@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProviders;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
@@ -35,6 +36,7 @@ import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.common.SystemUtil;
 import com.friend.swagger.entity.UserProfile;
+import com.friend.swagger.viewmodel.CacheUserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.internal.LinkedTreeMap;
@@ -65,6 +67,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     private View headView;
     private ImageView headImage;
     private TextView headText;
+    // ViewModel
+    private CacheUserViewModel cacheUserViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         initView();
         RongIM.getInstance().setConversationClickListener(new MyConversationClickListener());
         dataInsert();
+        cacheUserViewModel = ViewModelProviders.of(this).get(CacheUserViewModel.class);
         startChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -342,6 +347,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                             Intent loginIntent = new Intent(ChatActivity.this, LoginActivity.class);
                             startActivity(loginIntent);
                             Toast.makeText(ChatActivity.this, "登出成功", Toast.LENGTH_SHORT).show();
+                            cacheUserViewModel.deleteAllCaches();
                             finish();
                         } else {
                             Toast.makeText(ChatActivity.this, "登出失败", Toast.LENGTH_SHORT).show();

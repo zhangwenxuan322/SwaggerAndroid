@@ -21,6 +21,9 @@ import android.widget.Toast;
 import androidx.annotation.CallSuper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,6 +34,8 @@ import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.LocationUtil;
 import com.friend.swagger.common.SystemUtil;
+import com.friend.swagger.entity.CacheUser;
+import com.friend.swagger.viewmodel.CacheUserViewModel;
 import com.tamsiree.rxtool.RxPermissionsTool;
 
 import java.io.IOException;
@@ -49,6 +54,8 @@ public class LoginActivity extends AppCompatActivity {
     // 经纬度
     private Double lon;
     private Double lat;
+    // ViewModel
+    private CacheUserViewModel cacheUserViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,22 @@ public class LoginActivity extends AppCompatActivity {
         // 按钮点击事件初始化
         initButtonAction();
         RxPermissionsTool.with(LoginActivity.this).addPermission("android.permission.ACCESS_FINE_LOCATION").initPermission();
+        cacheUserViewModel = ViewModelProviders.of(this).get(CacheUserViewModel.class);
+        cacheUserViewModel.getCacheUser().observe(this, new Observer<List<CacheUser>>() {
+            @Override
+            public void onChanged(List<CacheUser> cacheUsers) {
+                if (cacheUsers.size() > 0) {
+                    String account = cacheUsers.get(0).getAccount();
+                    String password = cacheUsers.get(0).getPassword();
+                    accountText.setText(account);
+                    passwordText.setText(password);
+                    loginAction(account, password);
+                } else {
+//                    Toast.makeText(LoginActivity.this, "没数据", Toast.LENGTH_SHORT).show();
+                    // 没有用户缓存数据就正常登陆
+                }
+            }
+        });
     }
 
     /**
@@ -84,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
                 } else {
                     loginAction(account, password);
+                    cacheUserViewModel.insert(new CacheUser(account, password));
                 }
             }
         });

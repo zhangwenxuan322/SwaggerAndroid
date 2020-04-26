@@ -50,6 +50,8 @@ public abstract class CacheUserDataBase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
+//            cacheUserDao.insert(new CacheUser("test", "test"));
+//            cacheUserDao.deleteAllCaches();
             return null;
         }
     }
