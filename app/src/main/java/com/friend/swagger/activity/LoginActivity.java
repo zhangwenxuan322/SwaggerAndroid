@@ -83,45 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (account.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 255);
-                    } else {
-                        LocationUtil.initLocation(LoginActivity.this);
-                        lon = LocationUtil.longitude;
-                        lat = LocationUtil.latitude;
-                    }
-                    String device = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-                    userApi.userLogin(account, password, SystemUtil.getIpAddressString(), lon, lat, device).enqueue(new Callback<Map<String, Object>>() {
-                        @Override
-                        public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                            Map<String, Object> map = response.body();
-                            if (map == null) {
-                                Toast.makeText(LoginActivity.this, "接收参数失败", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            if (map.get("code").toString().equals("200")) {
-                                // 登陆成功
-                                String token = map.get("token").toString();
-                                Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
-                                intent.putExtra(ChatActivity.EXTRA_ACCOUNT, account);
-                                intent.putExtra(ChatActivity.EXTRA_TOKEN, token);
-                                intent.putExtra(ChatActivity.EXTRA_LON, lon);
-                                intent.putExtra(ChatActivity.EXTRA_LAT, lat);
-                                startActivity(intent);
-                                finish();
-                            } else if (map.get("message").toString().equals(Constant.WRONG_PASSWORD)) {
-                                Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
-                            } else if (map.get("message").toString().equals(Constant.USER_NOT_EXIST)) {
-                                Toast.makeText(LoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                            Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    loginAction(account, password);
                 }
             }
         });
@@ -144,6 +106,48 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toActivity(RegisterActivity.class);
+            }
+        });
+    }
+
+    private void loginAction(String account, String password) {
+        if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 255);
+        } else {
+            LocationUtil.initLocation(LoginActivity.this);
+            lon = LocationUtil.longitude;
+            lat = LocationUtil.latitude;
+        }
+        String device = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        userApi.userLogin(account, password, SystemUtil.getIpAddressString(), lon, lat, device).enqueue(new Callback<Map<String, Object>>() {
+            @Override
+            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                Map<String, Object> map = response.body();
+                if (map == null) {
+                    Toast.makeText(LoginActivity.this, "接收参数失败", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (map.get("code").toString().equals("200")) {
+                    // 登陆成功
+                    String token = map.get("token").toString();
+                    Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
+                    intent.putExtra(ChatActivity.EXTRA_ACCOUNT, account);
+                    intent.putExtra(ChatActivity.EXTRA_TOKEN, token);
+                    intent.putExtra(ChatActivity.EXTRA_LON, lon);
+                    intent.putExtra(ChatActivity.EXTRA_LAT, lat);
+                    startActivity(intent);
+                    finish();
+                } else if (map.get("message").toString().equals(Constant.WRONG_PASSWORD)) {
+                    Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
+                } else if (map.get("message").toString().equals(Constant.USER_NOT_EXIST)) {
+                    Toast.makeText(LoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
