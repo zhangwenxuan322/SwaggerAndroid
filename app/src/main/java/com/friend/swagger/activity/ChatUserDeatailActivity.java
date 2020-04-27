@@ -29,6 +29,7 @@ import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.UserProfile;
 import com.google.gson.internal.LinkedTreeMap;
 import com.tamsiree.rxui.view.dialog.RxDialog;
+import com.tamsiree.rxui.view.dialog.RxDialogEditSureCancel;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -71,26 +72,35 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         requestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ChatUserDeatailActivity.this);
-                builder.setTitle("申请内容");
-                builder.setView(new EditText(ChatUserDeatailActivity.this));
-                builder.setPositiveButton("发送", new DialogInterface.OnClickListener() {
+                RxDialogEditSureCancel rxDialogEditSureCancel = new RxDialogEditSureCancel(ChatUserDeatailActivity.this);
+                rxDialogEditSureCancel.setTitle("请输入申请内容");
+                rxDialogEditSureCancel.setSure("发送");
+                rxDialogEditSureCancel.setCancel("取消");
+                rxDialogEditSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(ChatUserDeatailActivity.this, "发送", Toast.LENGTH_SHORT).show();
+                    public void onClick(View v) {
+                        Toast.makeText(ChatUserDeatailActivity.this,
+                                rxDialogEditSureCancel.getEditText().getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        rxDialogEditSureCancel.dismiss();
                     }
                 });
-                builder.setNegativeButton("取消", null);
-                builder.show();
+                rxDialogEditSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rxDialogEditSureCancel.dismiss();
+                    }
+                });
+                rxDialogEditSureCancel.show();
             }
         });
         chatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (chatBtn.getText().equals("开始聊天"))
-                    RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid"+friendId, userProfile.getUserName());
+                    RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid" + friendId, userProfile.getUserName());
                 else
-                    RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid"+friendId, "临时聊天");
+                    RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid" + friendId, "临时聊天");
             }
         });
         deleteBtn.setOnClickListener(new View.OnClickListener() {
