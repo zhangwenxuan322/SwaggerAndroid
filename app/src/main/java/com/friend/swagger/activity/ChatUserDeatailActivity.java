@@ -1,5 +1,6 @@
 package com.friend.swagger.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import io.rong.imkit.RongIM;
@@ -8,12 +9,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.UserProfile;
 import com.google.gson.internal.LinkedTreeMap;
+import com.tamsiree.rxui.view.dialog.RxDialog;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -67,7 +71,17 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         requestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChatUserDeatailActivity.this);
+                builder.setTitle("申请内容");
+                builder.setView(new EditText(ChatUserDeatailActivity.this));
+                builder.setPositiveButton("发送", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ChatUserDeatailActivity.this, "发送", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("取消", null);
+                builder.show();
             }
         });
         chatBtn.setOnClickListener(new View.OnClickListener() {
