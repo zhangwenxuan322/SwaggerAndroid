@@ -30,7 +30,7 @@ import retrofit2.Response;
 public class AddAdapter extends RecyclerView.Adapter<AddAdapter.AddViewHolder>{
     private List<UserProfile> list;
     private UserApi userApi;
-    //声明自定义的监听接口
+    // 声明自定义的监听接口
     private static OnAddItemClickListener onAddItemClickListener;
 
     public interface OnAddItemClickListener {

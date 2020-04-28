@@ -23,7 +23,7 @@
         <activity android:name=".activity.ModifyUserDetailActivity" />
         <activity android:name=".activity.SettingsActivity" />
         <activity android:name=".activity.ContactsActivity" />
-        <activity android:name=".activity.CreateGroupActivity" />
+        <activity android:name=".activity.FriendRequestActivity" />
         <activity android:name=".activity.NearbyActivity" />
         <activity android:name=".activity.UserDeatailActivity" />
         <activity

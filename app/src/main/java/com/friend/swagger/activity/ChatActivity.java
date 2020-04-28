@@ -325,8 +325,8 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 nearbyIntent.putExtra(NearbyActivity.EXTRA_ID, userProfile.getUserId());
                 startActivity(nearbyIntent);
                 break;
-            case R.id.group_chat:
-                Intent createGroupIntent = new Intent(ChatActivity.this, CreateGroupActivity.class);
+            case R.id.friend_request:
+                Intent createGroupIntent = new Intent(ChatActivity.this, FriendRequestActivity.class);
                 startActivity(createGroupIntent);
                 break;
             case R.id.contacts:

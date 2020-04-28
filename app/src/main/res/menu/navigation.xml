@@ -6,9 +6,9 @@
             android:icon="@drawable/ic_nature_people"
             android:title="附近的人" />
         <item
-            android:id="@+id/group_chat"
+            android:id="@+id/friend_request"
             android:icon="@drawable/ic_chat"
-            android:title="创建群聊" />
+            android:title="好友请求" />
         <item
             android:id="@+id/contacts"
             android:icon="@drawable/ic_people"
