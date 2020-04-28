@@ -23,9 +23,11 @@ import android.widget.Toast;
 
 import com.friend.swagger.R;
 import com.friend.swagger.api.FriendsApi;
+import com.friend.swagger.api.RequestApi;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
+import com.friend.swagger.entity.FriendRequest;
 import com.friend.swagger.entity.UserProfile;
 import com.google.gson.internal.LinkedTreeMap;
 import com.tamsiree.rxui.view.dialog.RxDialog;
@@ -40,6 +42,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
     private int friendId;
     private UserProfile userProfile;
     private UserApi userApi;
+    private RequestApi requestApi;
     private FriendsApi friendsApi;
     private ImageView portrait;
     private TextView userName;
@@ -55,6 +58,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         setTitle("用户信息");
         userApi = RetrofitService.createService(UserApi.class);
         friendsApi = RetrofitService.createService(FriendsApi.class);
+        requestApi = RetrofitService.createService(RequestApi.class);
         portrait = findViewById(R.id.user_portrait);
         userName = findViewById(R.id.user_name);
         userBio = findViewById(R.id.user_bio);
@@ -79,9 +83,27 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
                 rxDialogEditSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(ChatUserDeatailActivity.this,
-                                rxDialogEditSureCancel.getEditText().getText().toString(),
-                                Toast.LENGTH_SHORT).show();
+                        FriendRequest friendRequest = new FriendRequest();
+                        friendRequest.setReqSubId(Constant.USER_ID);
+                        friendRequest.setReqMainId(friendId);
+                        friendRequest.setReqMsg(rxDialogEditSureCancel.getEditText().getText().toString());
+                        friendRequest.setReqCode(0);
+                        requestApi.postFriendRequest(friendRequest).enqueue(new Callback<Map<String, Object>>() {
+                            @Override
+                            public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
+                                if (response.body() == null)
+                                    Toast.makeText(ChatUserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                                if (response.body().get("code").equals("200"))
+                                    Toast.makeText(ChatUserDeatailActivity.this, "申请成功", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(ChatUserDeatailActivity.this, "请等候对方处理", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Map<String, Object>> call, Throwable t) {
+                                Toast.makeText(ChatUserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         rxDialogEditSureCancel.dismiss();
                     }
                 });
