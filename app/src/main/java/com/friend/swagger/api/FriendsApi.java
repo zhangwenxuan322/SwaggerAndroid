@@ -2,6 +2,7 @@ package com.friend.swagger.api;
 
 import com.friend.swagger.entity.FriendsManager;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -55,4 +56,12 @@ public interface FriendsApi {
     @DELETE("friend/release")
     Call<Map<String, String>> friendRelease(@Body FriendsManager friendsManager);
 
+    /**
+     * 获取好友列表
+     *
+     * @param userId
+     * @return
+     */
+    @GET("friend/list")
+    Call<List<FriendsManager>> getFirendList(@Query("userId") int userId);
 }
