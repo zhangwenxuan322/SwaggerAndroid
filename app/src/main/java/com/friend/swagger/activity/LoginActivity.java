@@ -37,6 +37,7 @@ import com.friend.swagger.common.SystemUtil;
 import com.friend.swagger.entity.CacheUser;
 import com.friend.swagger.viewmodel.CacheUserViewModel;
 import com.tamsiree.rxtool.RxPermissionsTool;
+import com.tamsiree.rxtool.view.RxToast;
 
 import java.io.IOException;
 import java.util.List;
@@ -104,10 +105,9 @@ public class LoginActivity extends AppCompatActivity {
                 String account = accountText.getText().toString();
                 String password = passwordText.getText().toString();
                 if (account.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
+                    RxToast.warning("账号或密码不能为空");
                 } else {
                     loginAction(account, password);
-                    cacheUserViewModel.insert(new CacheUser(account, password));
                 }
             }
         });
@@ -148,13 +148,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 Map<String, Object> map = response.body();
                 if (map == null) {
-                    Toast.makeText(LoginActivity.this, "接收参数失败", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (map.get("code").toString().equals("200")) {
                     // 登陆成功
                     String token = map.get("token").toString();
-                    Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                    RxToast.success("登录成功");
                     Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
                     intent.putExtra(ChatActivity.EXTRA_ACCOUNT, account);
                     intent.putExtra(ChatActivity.EXTRA_TOKEN, token);
@@ -163,15 +162,15 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else if (map.get("message").toString().equals(Constant.WRONG_PASSWORD)) {
-                    Toast.makeText(LoginActivity.this, "密码错误", Toast.LENGTH_SHORT).show();
+                    RxToast.error("密码错误");
                 } else if (map.get("message").toString().equals(Constant.USER_NOT_EXIST)) {
-                    Toast.makeText(LoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
+                    RxToast.error("用户不存在");
                 }
             }
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                RxToast.error("请求失败");
             }
         });
     }

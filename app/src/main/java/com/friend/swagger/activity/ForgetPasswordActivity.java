@@ -28,6 +28,7 @@ import com.friend.swagger.api.VerCodeApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.entity.VerCode;
+import com.tamsiree.rxtool.view.RxToast;
 
 import java.util.Map;
 
@@ -131,7 +132,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<VerCode> call, Throwable t) {
-                        Toast.makeText(ForgetPasswordActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        RxToast.error("请求失败");
                     }
                 });
             }
@@ -144,13 +145,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 String newPwd = resetPwdText.getText().toString();
                 String confirmPwd = confirmPwdText.getText().toString();
                 if (phone.isEmpty() || code.isEmpty() || newPwd.isEmpty() || confirmPwd.isEmpty()) {
-                    Toast.makeText(ForgetPasswordActivity.this, "不能有空", Toast.LENGTH_SHORT).show();
+                    RxToast.warning("不能有空");
                     return;
                 } else if (!phone.equals(verCodeValue.getCodePhone()) || !code.equals(verCodeValue.getCodeValue())) {
-                    Toast.makeText(ForgetPasswordActivity.this, "手机号或验证码有误", Toast.LENGTH_SHORT).show();
+                    RxToast.warning("手机号或验证码有误");
                     return;
                 } else if (!newPwd.equals(confirmPwd)) {
-                    Toast.makeText(ForgetPasswordActivity.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
+                    RxToast.warning("两次密码不一致");
                     return;
                 }
                 userApi.changePassword(phone, newPwd).enqueue(new Callback<Map<String, Object>>() {
@@ -158,13 +159,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                         Map<String, Object> map = response.body();
                         if (map == null) {
-                            Toast.makeText(ForgetPasswordActivity.this, "接收参数失败", Toast.LENGTH_SHORT).show();
+                            RxToast.error("请求失败");
                             return;
                         }
                         if ("404".equals(map.get("code").toString()) && Constant.USER_NOT_EXIST.equals(map.get("message").toString())) {
-                            Toast.makeText(ForgetPasswordActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
+                            RxToast.error("用户不存在");
                         } else {
-                            Toast.makeText(ForgetPasswordActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
+                            RxToast.success("修改成功");
                             Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
                             startActivity(intent);
                             finish();
@@ -173,7 +174,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                        Toast.makeText(ForgetPasswordActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        RxToast.error("请求失败");
                     }
                 });
             }

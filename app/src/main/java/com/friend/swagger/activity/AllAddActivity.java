@@ -29,6 +29,7 @@ import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.entity.UserProfile;
 import com.google.gson.internal.LinkedTreeMap;
+import com.tamsiree.rxtool.view.RxToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class AllAddActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                             if (response.body() == null) {
-                                Toast.makeText(AllAddActivity.this, "请求异常", Toast.LENGTH_SHORT).show();
+                                RxToast.error("请求异常");
                                 return;
                             }
                             if (response.body().get("code").equals("200")) {
@@ -92,7 +93,7 @@ public class AllAddActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
+                            RxToast.error("请求失败");
                         }
                     });
                 }

@@ -29,6 +29,7 @@ import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.entity.VerCode;
 import com.google.gson.internal.LinkedTreeMap;
+import com.tamsiree.rxtool.view.RxToast;
 
 import java.util.Map;
 
@@ -127,7 +128,7 @@ public class VerCodeLoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<VerCode> call, Throwable t) {
-                        Toast.makeText(VerCodeLoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        RxToast.error("请求失败");
                     }
                 });
             }
@@ -144,7 +145,7 @@ public class VerCodeLoginActivity extends AppCompatActivity {
                 String editCode = verCodeText.getText().toString();
                 String editPhone = phoneText.getText().toString();
                 if (editCode.isEmpty() || editPhone.isEmpty()) {
-                    Toast.makeText(VerCodeLoginActivity.this, "手机号或验证码不能为空", Toast.LENGTH_SHORT).show();
+                    RxToast.warning("手机号或验证码不能为空");
                     return;
                 }
                 if (editPhone.equals(verCodeValue.getCodePhone()) && editCode.equals(verCodeValue.getCodeValue())) {
@@ -152,14 +153,14 @@ public class VerCodeLoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                             if (response.body().get("code").equals("404") && response.body().get("message").equals(Constant.USER_NOT_EXIST)) {
-                                Toast.makeText(VerCodeLoginActivity.this, "用户不存在", Toast.LENGTH_SHORT).show();
+                                RxToast.error("用户不存在");
                                 return;
                             }
                             if (response.body().get("code").equals("200")) {
                                 LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>)response.body().get("userProfile");
                                 String phone = (String)map.get("userPhone");
                                 String token = (String)map.get("userToken");
-                                Toast.makeText(VerCodeLoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                                RxToast.success("登陆成功");
                                 Intent intent = new Intent(VerCodeLoginActivity.this, ChatActivity.class);
                                 intent.putExtra(ChatActivity.EXTRA_ACCOUNT, phone);
                                 intent.putExtra(ChatActivity.EXTRA_TOKEN, token);

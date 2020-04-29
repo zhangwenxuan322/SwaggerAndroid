@@ -35,11 +35,13 @@ import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.common.SystemUtil;
+import com.friend.swagger.entity.CacheUser;
 import com.friend.swagger.entity.UserProfile;
 import com.friend.swagger.viewmodel.CacheUserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.internal.LinkedTreeMap;
+import com.tamsiree.rxtool.view.RxToast;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -110,7 +112,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
                 @Override
                 public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                    Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
+                    RxToast.error("用户信息请求失败");
                 }
             });
         } else {
@@ -123,7 +125,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
                 @Override
                 public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                    Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
+                    RxToast.error("请求失败");
                 }
             });
         }
@@ -136,7 +138,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
      */
     private void getUserInfo(Response<Map<String, Object>> response) {
         if (response.body() == null) {
-            Toast.makeText(ChatActivity.this, "请求异常", Toast.LENGTH_SHORT).show();
+            RxToast.error("请求失败");
             return;
         }
         if (response.body().get("code").equals("200")) {
@@ -159,8 +161,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             userProfile.setUserLoginInfoId(new Double(String.valueOf(map.get("userLoginInfoId"))).intValue());
             headText.setText(userProfile.getUserName());
             setUserPortrait(userProfile.getUserPortrait());
+            cacheUserViewModel.insert(new CacheUser(userProfile.getUserPhone(), userProfile.getUserPassword()));
         } else {
-            Toast.makeText(ChatActivity.this, "用户信息请求失败", Toast.LENGTH_SHORT).show();
+            RxToast.error("请求失败");
         }
     }
 
@@ -180,7 +183,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                RxToast.error("请求失败");
             }
         });
     }
@@ -345,17 +348,17 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                             RongIMClient.getInstance().disconnect();
                             Intent loginIntent = new Intent(ChatActivity.this, LoginActivity.class);
                             startActivity(loginIntent);
-                            Toast.makeText(ChatActivity.this, "登出成功", Toast.LENGTH_SHORT).show();
+                            RxToast.success("登出成功");
                             cacheUserViewModel.deleteAllCaches();
                             finish();
                         } else {
-                            Toast.makeText(ChatActivity.this, "登出失败", Toast.LENGTH_SHORT).show();
+                            RxToast.error("登出失败");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                        Toast.makeText(ChatActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                        RxToast.error("请求失败");
                     }
                 });
                 break;

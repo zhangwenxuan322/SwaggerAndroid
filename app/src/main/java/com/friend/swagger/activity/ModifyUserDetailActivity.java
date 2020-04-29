@@ -26,6 +26,7 @@ import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.UserProfile;
+import com.tamsiree.rxtool.view.RxToast;
 
 import java.util.Map;
 
@@ -118,15 +119,17 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
             userApi.changeSwaggerId(userProfile).enqueue(new Callback<Map<String, Object>>() {
                 @Override
                 public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                    if (response.body() == null)
-                        Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(ModifyUserDetailActivity.this, "SwaggerId设置成功", Toast.LENGTH_SHORT).show();
+                    if (response.body() == null) {
+                        RxToast.error("请求失败");
+                        return;
+                    }
+                    RxToast.success("SwaggerId设置成功");
                     finish();
                 }
 
                 @Override
                 public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                    Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    RxToast.error("请求失败");
                 }
             });
         } else if (title.equals(sexTitle)) {
@@ -138,15 +141,17 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
             userApi.changeSex(userProfile).enqueue(new Callback<Map<String, Object>>() {
                 @Override
                 public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                    if (response.body() == null)
-                        Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(ModifyUserDetailActivity.this, "性别保存成功", Toast.LENGTH_SHORT).show();
+                    if (response.body() == null) {
+                        RxToast.error("请求失败");
+                        return;
+                    }
+                    RxToast.success("性别保存成功");
                     finish();
                 }
 
                 @Override
                 public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                    Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    RxToast.error("请求失败");
                 }
             });
         } else if (title.equals(bioTitle) && editText.getText() != null && !"".equals(editText.getText().toString())) {
@@ -156,15 +161,17 @@ public class ModifyUserDetailActivity extends AppCompatActivity {
             userApi.changeBio(userProfile).enqueue(new Callback<Map<String, Object>>() {
                 @Override
                 public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                    if (response.body() == null)
-                        Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(ModifyUserDetailActivity.this, "个性签名保存成功", Toast.LENGTH_SHORT).show();
+                    if (response.body() == null) {
+                        RxToast.error("请求失败");
+                        return;
+                    }
+                    RxToast.success("个性签名保存成功");
                     finish();
                 }
 
                 @Override
                 public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                    Toast.makeText(ModifyUserDetailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    RxToast.error("请求失败");
                 }
             });
         }

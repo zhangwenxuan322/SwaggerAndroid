@@ -33,6 +33,7 @@ import com.friend.swagger.adapter.NearbyAdapter;
 import com.friend.swagger.api.NearbyApi;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.entity.NearbyUser;
+import com.tamsiree.rxtool.view.RxToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -167,7 +168,7 @@ public class NearbyActivity extends AppCompatActivity {
                 nearbyList.clear();
                 List<NearbyUser> list = response.body();
                 if (list == null) {
-                    Toast.makeText(NearbyActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                    RxToast.error("请求失败");
                     return;
                 }
                 // 从列表中删除正在使用的用户
@@ -186,7 +187,7 @@ public class NearbyActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<NearbyUser>> call, Throwable t) {
-                Toast.makeText(NearbyActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                RxToast.error("请求失败");
             }
         });
     }

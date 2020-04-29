@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.tamsiree.rxtool.view.RxToast;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -62,8 +64,7 @@ public class LocationUtil {
             //是否为网络位置控制器
             provider = LocationManager.NETWORK_PROVIDER;
         } else {
-            Toast.makeText(context, "请检查网络或GPS是否打开",
-                    Toast.LENGTH_LONG).show();
+            RxToast.warning("请检查网络或GPS是否打开");
             return;
         }
         if ( Build.VERSION.SDK_INT >= 23 &&
@@ -115,7 +116,7 @@ public class LocationUtil {
                 stringBuilder.append(address.getLongitude());//维度
             }
         } catch (IOException e) {
-            Toast.makeText(context, "报错", Toast.LENGTH_LONG).show();
+            RxToast.error("报错");
             e.printStackTrace();
         }
         return stringBuilder.toString();

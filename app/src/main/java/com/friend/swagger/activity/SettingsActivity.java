@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.friend.swagger.R;
 import com.friend.swagger.adapter.SettingsAdapter;
+import com.tamsiree.rxtool.view.RxToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
         settingsAdapter.setSettingsItemClickListener(new SettingsAdapter.OnSettingsItemClickListener() {
             @Override
             public void onSettingsItemClick(int position) {
-                Toast.makeText(SettingsActivity.this, optionList.get(position), Toast.LENGTH_SHORT).show();
+                RxToast.info(optionList.get(position));
             }
         });
     }

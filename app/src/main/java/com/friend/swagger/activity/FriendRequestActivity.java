@@ -21,6 +21,7 @@ import com.friend.swagger.api.RequestApi;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.FriendRequest;
+import com.tamsiree.rxtool.view.RxToast;
 import com.tamsiree.rxui.view.dialog.RxDialogSureCancel;
 
 import java.util.ArrayList;
@@ -53,8 +54,10 @@ public class FriendRequestActivity extends AppCompatActivity {
         requestApi.getRequestList(Constant.USER_ID).enqueue(new Callback<List<FriendRequest>>() {
             @Override
             public void onResponse(Call<List<FriendRequest>> call, Response<List<FriendRequest>> response) {
-                if (response.body() == null)
-                    Toast.makeText(FriendRequestActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                if (response.body() == null) {
+                    RxToast.error("请求失败");
+                    return;
+                }
                 list.clear();
                 list.addAll(response.body());
                 reqAdapter.notifyDataSetChanged();
@@ -62,7 +65,7 @@ public class FriendRequestActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<FriendRequest>> call, Throwable t) {
-                Toast.makeText(FriendRequestActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                RxToast.error("请求失败");
             }
         });
     }
@@ -83,28 +86,29 @@ public class FriendRequestActivity extends AppCompatActivity {
             public void onRequestItemClick(int position) {
                 RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(FriendRequestActivity.this);
                 rxDialogSureCancel.setTitle("申请处理");
-                rxDialogSureCancel.setSure("接收");
+                rxDialogSureCancel.setSure("接受");
                 rxDialogSureCancel.setCancel("拒绝");
                 rxDialogSureCancel.setContent("您是否接受对方的好友请求？");
                 rxDialogSureCancel.show();
                 rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(FriendRequestActivity.this, "接收", Toast.LENGTH_SHORT).show();
                         FriendRequest friendRequest = list.get(position);
                         friendRequest.setReqCode(1);
                         requestApi.operateRequest(friendRequest).enqueue(new Callback<Map<String, Object>>() {
                             @Override
                             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                                if (response.body() == null)
-                                    Toast.makeText(FriendRequestActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(FriendRequestActivity.this, "接受申请", Toast.LENGTH_SHORT).show();
+                                if (response.body() == null) {
+                                    RxToast.error("请求失败");
+                                    return;
+                                }
+                                RxToast.success("接受成功");
                                 requestList();
                             }
 
                             @Override
                             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                                Toast.makeText(FriendRequestActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                                RxToast.error("请求失败");
                             }
                         });
                         rxDialogSureCancel.dismiss();
@@ -113,21 +117,22 @@ public class FriendRequestActivity extends AppCompatActivity {
                 rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(FriendRequestActivity.this, "拒绝", Toast.LENGTH_SHORT).show();
                         FriendRequest friendRequest = list.get(position);
                         friendRequest.setReqCode(2);
                         requestApi.operateRequest(friendRequest).enqueue(new Callback<Map<String, Object>>() {
                             @Override
                             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                                if (response.body() == null)
-                                    Toast.makeText(FriendRequestActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(FriendRequestActivity.this, "拒绝申请", Toast.LENGTH_SHORT).show();
+                                if (response.body() == null) {
+                                    RxToast.error("请求失败");
+                                    return;
+                                }
+                                RxToast.success("拒绝成功");
                                 requestList();
                             }
 
                             @Override
                             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                                Toast.makeText(FriendRequestActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                                RxToast.error("请求失败");
                             }
                         });
                         rxDialogSureCancel.dismiss();

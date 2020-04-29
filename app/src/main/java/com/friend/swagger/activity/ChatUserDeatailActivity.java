@@ -30,6 +30,7 @@ import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.FriendRequest;
 import com.friend.swagger.entity.UserProfile;
 import com.google.gson.internal.LinkedTreeMap;
+import com.tamsiree.rxtool.view.RxToast;
 import com.tamsiree.rxui.view.dialog.RxDialog;
 import com.tamsiree.rxui.view.dialog.RxDialogEditSureCancel;
 
@@ -92,16 +93,16 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                                 if (response.body() == null)
-                                    Toast.makeText(ChatUserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                                    RxToast.error("请求失败");
                                 if (response.body().get("code").equals("200"))
-                                    Toast.makeText(ChatUserDeatailActivity.this, "申请成功", Toast.LENGTH_SHORT).show();
+                                    RxToast.success("申请成功");
                                 else
-                                    Toast.makeText(ChatUserDeatailActivity.this, "请等候对方处理", Toast.LENGTH_SHORT).show();
+                                    RxToast.warning("耐心等待对方的选择");
                             }
 
                             @Override
                             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                                Toast.makeText(ChatUserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                                RxToast.error("请求失败");
                             }
                         });
                         rxDialogEditSureCancel.dismiss();
@@ -143,8 +144,10 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         friendsApi.friendFilter(Constant.USER_ID, friendId).enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if (response.body() == null)
-                    Toast.makeText(ChatUserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                if (response.body() == null) {
+                    RxToast.error("请求失败");
+                    return;
+                }
                 LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("friend");
                 if (map == null)
                     deleteBtn.setVisibility(View.GONE);
@@ -156,7 +159,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                Toast.makeText(ChatUserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                RxToast.error("请求失败");
             }
         });
     }
@@ -167,7 +170,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 if (response.body() == null) {
-                    Toast.makeText(ChatUserDeatailActivity.this, "请求异常", Toast.LENGTH_SHORT).show();
+                    RxToast.error("请求失败");
                     return;
                 }
                 if (response.body().get("code").equals("200")) {
@@ -198,7 +201,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                            RxToast.error("请求失败");
                         }
                     });
                     userName.setText(userProfile.getUserName());
@@ -208,7 +211,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-
+                RxToast.error("请求失败");
             }
         });
     }

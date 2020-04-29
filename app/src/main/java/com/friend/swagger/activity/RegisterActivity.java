@@ -35,6 +35,7 @@ import com.friend.swagger.common.SystemUtil;
 import com.friend.swagger.entity.UserProfile;
 import com.tamsiree.rxtool.RxPermissionsTool;
 import com.tamsiree.rxtool.RxPhotoTool;
+import com.tamsiree.rxtool.view.RxToast;
 import com.tamsiree.rxui.view.dialog.RxDialogChooseImage;
 
 import java.io.File;
@@ -103,11 +104,11 @@ public class RegisterActivity extends AppCompatActivity {
     private void validRegister() {
         // 空验证
         if (userNameText.getText().toString().isEmpty() || userPhoneText.getText().toString().isEmpty() || userPwdText.getText().toString().isEmpty()) {
-            Toast.makeText(RegisterActivity.this, "不能有空", Toast.LENGTH_SHORT).show();
+            RxToast.warning("不能有空");
             return;
         }
         if (!male.isChecked() && !female.isChecked()) {
-            Toast.makeText(RegisterActivity.this, "请选择性别", Toast.LENGTH_SHORT).show();
+            RxToast.warning("请选择性别");
             return;
         }
         // 值获取
@@ -120,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
         String fileName = userPhone + String.valueOf(new Date().getTime()) + ".png";
         // 手机号验证
         if (!PhoneUtil.isMobileNO(userPhone)) {
-            Toast.makeText(RegisterActivity.this, "手机号格式有误", Toast.LENGTH_SHORT).show();
+            RxToast.warning("手机号格式有误");
             return;
         }
         // 用户注册
@@ -131,10 +132,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                 if (response.body().get("code").toString().equals("415")) {
-                    Toast.makeText(RegisterActivity.this, "用户已存在！", Toast.LENGTH_SHORT).show();
+                    RxToast.error("用户已存在");
                 }
                 if (response.body().get("code").toString().equals("200")) {
-                    Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                    RxToast.success("注册成功");
                     // 上传头像
                     uploadPortrait(fileName);
                     // 跳转至登录页
@@ -144,7 +145,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                RxToast.error("请求失败");
             }
         });
 
@@ -174,13 +175,13 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                         if (response.body().get("code").toString().equals("404")) {
-                            Toast.makeText(RegisterActivity.this, response.body().get("message").toString(), Toast.LENGTH_SHORT).show();
+                            RxToast.error(response.body().get("message").toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                        Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        RxToast.error("请求失败");
                     }
                 });
     }

@@ -38,6 +38,7 @@ import com.friend.swagger.entity.UserProfile;
 import com.google.gson.internal.LinkedTreeMap;
 import com.tamsiree.rxtool.RxPermissionsTool;
 import com.tamsiree.rxtool.RxPhotoTool;
+import com.tamsiree.rxtool.view.RxToast;
 import com.tamsiree.rxui.view.dialog.RxDialogChooseImage;
 
 import java.io.File;
@@ -146,13 +147,13 @@ public class UserDeatailActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
                         if (response.body().get("code").toString().equals("404")) {
-                            Toast.makeText(UserDeatailActivity.this, response.body().get("message").toString(), Toast.LENGTH_SHORT).show();
+                            RxToast.error(response.body().get("message").toString());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                        Toast.makeText(UserDeatailActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        RxToast.error("请求失败");
                     }
                 });
     }
@@ -164,14 +165,16 @@ public class UserDeatailActivity extends AppCompatActivity {
         userApi.changePortrait(userProfile).enqueue(new Callback<Map<String, Object>>() {
             @Override
             public void onResponse(Call<Map<String, Object>> call, Response<Map<String, Object>> response) {
-                if (response.body() == null)
-                    Toast.makeText(UserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
-                Toast.makeText(UserDeatailActivity.this, "头像保存成功", Toast.LENGTH_SHORT).show();
+                if (response.body() == null) {
+                    RxToast.error("请求失败");
+                    return;
+                }
+                RxToast.success("头像保存成功");
             }
 
             @Override
             public void onFailure(Call<Map<String, Object>> call, Throwable t) {
-                Toast.makeText(UserDeatailActivity.this, "请求失败", Toast.LENGTH_SHORT).show();
+                RxToast.error("请求失败");
             }
         });
     }
