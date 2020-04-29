@@ -1,5 +1,6 @@
 package com.friend.swagger.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ public class GroupFriends {
     private String groupName;
 
     public GroupFriends() {
+        friends = new ArrayList<>();
     }
 
     public GroupFriends(List<UserProfile> friends, String groupName) {
