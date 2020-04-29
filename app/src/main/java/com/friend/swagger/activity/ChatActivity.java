@@ -27,7 +27,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.friend.swagger.R;
 import com.friend.swagger.api.RetrofitService;
@@ -161,7 +160,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
             userProfile.setUserLoginInfoId(new Double(String.valueOf(map.get("userLoginInfoId"))).intValue());
             headText.setText(userProfile.getUserName());
             setUserPortrait(userProfile.getUserPortrait());
-            cacheUserViewModel.insert(new CacheUser(userProfile.getUserPhone(), userProfile.getUserPassword()));
         } else {
             RxToast.error("请求失败");
         }

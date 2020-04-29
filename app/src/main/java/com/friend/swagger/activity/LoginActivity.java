@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                     RxToast.warning("账号或密码不能为空");
                 } else {
                     loginAction(account, password);
+                    cacheUserViewModel.insert(new CacheUser(account, password));
                 }
             }
         });

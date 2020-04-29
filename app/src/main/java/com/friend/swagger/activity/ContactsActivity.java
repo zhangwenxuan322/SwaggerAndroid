@@ -7,21 +7,28 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.friend.swagger.R;
+import com.friend.swagger.adapter.ExpandAdapter;
 import com.friend.swagger.api.FriendsApi;
 import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.FriendsManager;
+import com.friend.swagger.entity.GroupFriends;
+import com.friend.swagger.entity.UserProfile;
 import com.tamsiree.rxtool.view.RxToast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactsActivity extends AppCompatActivity {
     // api
     FriendsApi friendsApi;
+    ExpandableListView expandableListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,18 @@ public class ContactsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//添加默认的返回图标
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getFriendList();
+        List<UserProfile> u1list = new ArrayList<>();
+        for (int i = 0;i < 10;i++) {
+            UserProfile userProfile = new UserProfile();
+            userProfile.setUserName(String.valueOf(i));
+            u1list.add(userProfile);
+        }
+        GroupFriends groupFriends = new GroupFriends(u1list, "测试1");
+        List<GroupFriends> glist = new ArrayList<>();
+        glist.add(groupFriends);
+        expandableListView = findViewById(R.id.expand_list);
+        expandableListView.setAdapter(new ExpandAdapter(R.layout.friend_group_item, R.layout.friend_child_item
+                , LayoutInflater.from(getBaseContext()), glist));
     }
 
     private void getFriendList() {
