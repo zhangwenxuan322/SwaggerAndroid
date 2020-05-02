@@ -42,6 +42,10 @@ import java.util.Map;
 public class ChatUserDeatailActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
             "indi.friend.swagger.ChatUserDeatailActivity.EXTRA_ID";
+    public static final String EXTRA_REMARK_NAME =
+            "indi.friend.swagger.ChatUserDeatailActivity.EXTRA_REMARK_NAME";
+    public static final String EXTRA_GROUP_NAME =
+            "indi.friend.swagger.ChatUserDeatailActivity.EXTRA_GROUP_NAME";
     private int friendId;
     private UserProfile userProfile;
     private UserApi userApi;
@@ -52,6 +56,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
     private TextView userBio;
     private Button requestBtn;
     private Button chatBtn;
+    private Button groupBtn;
     private Button deleteBtn;
 
     @Override
@@ -68,6 +73,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         requestBtn = findViewById(R.id.request_btn);
         chatBtn = findViewById(R.id.chat_btn);
         deleteBtn = findViewById(R.id.delete_btn);
+        groupBtn = findViewById(R.id.group_btn);
         friendId = getIntent().getIntExtra(EXTRA_ID, 0);
         friendRelationDeal();
         initToolbar();
@@ -126,6 +132,28 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
                     RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid" + friendId, userProfile.getUserName());
                 else
                     RongIM.getInstance().startPrivateChat(ChatUserDeatailActivity.this, "swaggertestid" + friendId, "临时聊天");
+            }
+        });
+        groupBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RxDialogEditSureCancel rxDialogEditSureCancel = new RxDialogEditSureCancel(ChatUserDeatailActivity.this);
+                rxDialogEditSureCancel.setTitle("设置分组");
+                rxDialogEditSureCancel.setSure("确认");
+                rxDialogEditSureCancel.setCancel("取消");
+                rxDialogEditSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rxDialogEditSureCancel.dismiss();
+                    }
+                });
+                rxDialogEditSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rxDialogEditSureCancel.dismiss();
+                    }
+                });
+                rxDialogEditSureCancel.show();
             }
         });
         deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +220,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
                     deleteBtn.setVisibility(View.GONE);
                     chatBtn.setText("临时聊天");
                     requestBtn.setVisibility(View.VISIBLE);
+                    groupBtn.setVisibility(View.GONE);
                 }
                 else {
                     requestBtn.setVisibility(View.GONE);
