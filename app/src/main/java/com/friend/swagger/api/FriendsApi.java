@@ -53,7 +53,7 @@ public interface FriendsApi {
      * @param friendsManager
      * @return
      */
-    @DELETE("friend/release")
+    @POST("friend/release")
     Call<Map<String, String>> friendRelease(@Body FriendsManager friendsManager);
 
     /**

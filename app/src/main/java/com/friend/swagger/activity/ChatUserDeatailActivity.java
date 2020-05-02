@@ -28,11 +28,13 @@ import com.friend.swagger.api.RetrofitService;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.entity.FriendRequest;
+import com.friend.swagger.entity.FriendsManager;
 import com.friend.swagger.entity.UserProfile;
 import com.google.gson.internal.LinkedTreeMap;
 import com.tamsiree.rxtool.view.RxToast;
 import com.tamsiree.rxui.view.dialog.RxDialog;
 import com.tamsiree.rxui.view.dialog.RxDialogEditSureCancel;
+import com.tamsiree.rxui.view.dialog.RxDialogSureCancel;
 
 import java.io.InputStream;
 import java.util.Map;
@@ -129,7 +131,43 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FriendsManager friendsManager = new FriendsManager();
+                friendsManager.setMainUserId(Constant.USER_ID);
+                friendsManager.setFriendUserId(friendId);
+                RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(ChatUserDeatailActivity.this);
+                rxDialogSureCancel.setTitle("确认");
+                rxDialogSureCancel.setContent("您确认删除该好友？");
+                rxDialogSureCancel.getContentView().setTextColor(getResources().getColor(R.color.red));
+                rxDialogSureCancel.setSure("确认");
+                rxDialogSureCancel.setCancel("取消");
+                rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        friendsApi.friendRelease(friendsManager).enqueue(new Callback<Map<String, String>>() {
+                            @Override
+                            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+                                if (response.body() == null) {
+                                    RxToast.error("请求失败");
+                                    return;
+                                }
+                                RxToast.success("删除成功");
+                            }
 
+                            @Override
+                            public void onFailure(Call<Map<String, String>> call, Throwable t) {
+                                RxToast.error("请求失败");
+                            }
+                        });
+                        rxDialogSureCancel.dismiss();
+                    }
+                });
+                rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        rxDialogSureCancel.dismiss();
+                    }
+                });
+                rxDialogSureCancel.show();
             }
         });
     }
