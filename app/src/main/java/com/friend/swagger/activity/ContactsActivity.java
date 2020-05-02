@@ -1,5 +1,6 @@
 package com.friend.swagger.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import retrofit2.Call;
@@ -53,12 +54,19 @@ public class ContactsActivity extends AppCompatActivity {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Intent intent = new Intent(ContactsActivity.this, ChatUserDeatailActivity.class);
                 intent.putExtra(ChatUserDeatailActivity.EXTRA_ID, groupList.get(groupPosition).getFriends().get(childPosition).getUserId());
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 return true;
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 1) {
+            getFriendList();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     private void getFriendList() {
         friendList = new ArrayList<>();

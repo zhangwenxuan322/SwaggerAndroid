@@ -151,6 +151,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
                                     return;
                                 }
                                 RxToast.success("删除成功");
+                                friendRelationDeal();
                             }
 
                             @Override
@@ -187,8 +188,11 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
                     return;
                 }
                 LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("friend");
-                if (map == null)
+                if (map == null) {
                     deleteBtn.setVisibility(View.GONE);
+                    chatBtn.setText("临时聊天");
+                    requestBtn.setVisibility(View.VISIBLE);
+                }
                 else {
                     requestBtn.setVisibility(View.GONE);
                     chatBtn.setText("开始聊天");
