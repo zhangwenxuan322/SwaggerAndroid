@@ -32,10 +32,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         List<String> optionList = new ArrayList<>();
-        optionList.add("安全与隐私");
-        optionList.add("聊天背景");
-        optionList.add("清除缓存");
-        optionList.add("清理聊天记录");
         optionList.add("检查更新");
         settingsRecyclerView = findViewById(R.id.settings_recycler);
         settingsRecyclerView.setHasFixedSize(true);

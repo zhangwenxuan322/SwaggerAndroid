@@ -6,9 +6,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -46,6 +48,15 @@ public class ContactsActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getFriendList();
         expandableListView = findViewById(R.id.expand_list);
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Intent intent = new Intent(ContactsActivity.this, ChatUserDeatailActivity.class);
+                intent.putExtra(ChatUserDeatailActivity.EXTRA_ID, groupList.get(groupPosition).getFriends().get(childPosition).getUserId());
+                startActivity(intent);
+                return true;
+            }
+        });
     }
 
 
@@ -116,7 +127,6 @@ public class ContactsActivity extends AppCompatActivity {
                 if (response.body().get("code").equals("200")) {
                     LinkedTreeMap<String, Object> map = (LinkedTreeMap<String, Object>) response.body().get("userProfile");
                     userProfile.setUserId(new Double(map.get("userId").toString()).intValue());
-                    Constant.USER_ID = userProfile.getUserId();
                     userProfile.setUserName(String.valueOf(map.get("userName")));
                     userProfile.setUserSex(String.valueOf(map.get("userSex")));
                     userProfile.setUserPhone(String.valueOf(map.get("userPhone")));
