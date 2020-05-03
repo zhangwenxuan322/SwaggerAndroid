@@ -42,15 +42,12 @@ import java.util.Map;
 public class ChatUserDeatailActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
             "indi.friend.swagger.ChatUserDeatailActivity.EXTRA_ID";
-    public static final String EXTRA_REMARK_NAME =
-            "indi.friend.swagger.ChatUserDeatailActivity.EXTRA_REMARK_NAME";
-    public static final String EXTRA_GROUP_NAME =
-            "indi.friend.swagger.ChatUserDeatailActivity.EXTRA_GROUP_NAME";
     private int friendId;
     private UserProfile userProfile;
     private UserApi userApi;
     private RequestApi requestApi;
     private FriendsApi friendsApi;
+    private FriendsManager manager;
     private ImageView portrait;
     private TextView userName;
     private TextView userBio;
@@ -79,6 +76,7 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
         initToolbar();
         initUserProfile();
         btnListener();
+
     }
 
     private void btnListener() {
@@ -144,7 +142,29 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
                 rxDialogEditSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        rxDialogEditSureCancel.dismiss();
+                        String group = rxDialogEditSureCancel.getEditText().getText().toString();
+                        if (group.isEmpty()) {
+                            RxToast.warning("输入不能为空！");
+                            return;
+                        }
+                        manager.setGroupName(group);
+                        friendsApi.friendModification(manager).enqueue(new Callback<Map<String, String>>() {
+                            @Override
+                            public void onResponse(Call<Map<String, String>> call, Response<Map<String, String>> response) {
+                                if (response.body() == null) {
+                                    RxToast.error("请求失败");
+                                    return;
+                                }
+                                RxToast.success("设置分组成功");
+                                rxDialogEditSureCancel.dismiss();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Map<String, String>> call, Throwable t) {
+                                RxToast.error("请求失败");
+                            }
+                        });
+
                     }
                 });
                 rxDialogEditSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
@@ -223,6 +243,14 @@ public class ChatUserDeatailActivity extends AppCompatActivity {
                     groupBtn.setVisibility(View.GONE);
                 }
                 else {
+                    manager = new FriendsManager();
+                    manager.setId(new Double(map.get("id").toString()).intValue());
+                    manager.setMainUserId(new Double(map.get("mainUserId").toString()).intValue());
+                    manager.setFriendUserId(new Double(map.get("friendUserId").toString()).intValue());
+                    if (map.get("remarkName") != null)
+                        manager.setRemarkName(map.get("remarkName").toString());
+                    if (map.get("groupName") != null)
+                        manager.setGroupName(map.get("groupName").toString());
                     requestBtn.setVisibility(View.GONE);
                     chatBtn.setText("开始聊天");
                 }
