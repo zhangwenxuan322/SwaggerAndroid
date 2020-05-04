@@ -26,10 +26,6 @@
         <activity android:name=".activity.FriendRequestActivity" />
         <activity android:name=".activity.NearbyActivity" />
         <activity android:name=".activity.UserDeatailActivity" />
-        <activity
-            android:name=".activity.TestActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ForgetPasswordActivity" />
         <activity android:name=".activity.VerCodeLoginActivity" />
         <activity android:name=".activity.RegisterActivity" />

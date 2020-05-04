@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.friend.swagger.R;
 import com.friend.swagger.adapter.SettingsAdapter;
+import com.open.hule.library.entity.AppUpdate;
+import com.open.hule.library.utils.UpdateManager;
 import com.tamsiree.rxtool.view.RxToast;
 
 import java.util.ArrayList;
@@ -44,7 +46,19 @@ public class SettingsActivity extends AppCompatActivity {
         settingsAdapter.setSettingsItemClickListener(new SettingsAdapter.OnSettingsItemClickListener() {
             @Override
             public void onSettingsItemClick(int position) {
-                RxToast.info(optionList.get(position));
+                if (optionList.get(position).equals("检查更新")) {
+                    AppUpdate appUpdate = new AppUpdate.Builder()
+                            //更新地址（必须）
+                            .newVersionUrl("https://imtt.dd.qq.com/16891/8EC4E86B648D57FDF114AF5D3002C09B.apk")
+                            // 版本号（非必须）
+                            .newVersionCode("v1.7")
+                            // 文件大小（非必须）
+                            .fileSize("5.8M")
+                            // 更新内容（非必填，默认“1.用户体验优化\n2.部分问题修复”）
+                            .updateInfo("1.用户体验优化\n2.部分问题修复")
+                            .build();
+                    new UpdateManager().startUpdate(SettingsActivity.this, appUpdate);
+                }
             }
         });
     }

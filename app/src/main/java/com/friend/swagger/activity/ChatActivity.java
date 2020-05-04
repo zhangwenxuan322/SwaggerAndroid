@@ -40,6 +40,7 @@ import com.friend.swagger.viewmodel.CacheUserViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.internal.LinkedTreeMap;
+import com.tamsiree.rxtool.RxAppTool;
 import com.tamsiree.rxtool.view.RxToast;
 
 import java.io.InputStream;

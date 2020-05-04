@@ -4,6 +4,7 @@ import android.location.Location;
 
 import com.friend.swagger.activity.LoginActivity;
 import com.friend.swagger.api.FriendsApi;
+import com.friend.swagger.api.UpdateApi;
 import com.friend.swagger.api.UserApi;
 import com.friend.swagger.api.VerCodeApi;
 import com.friend.swagger.common.Constant;
@@ -41,6 +42,7 @@ public class ExampleUnitTest {
     private UserApi userApi;
     private VerCodeApi verCodeApi;
     private FriendsApi friendsApi;
+    private UpdateApi updateApi;
 
     @Before
     public void retrofit_build() {
@@ -59,6 +61,7 @@ public class ExampleUnitTest {
         userApi = retrofit.create(UserApi.class);
         verCodeApi = retrofit.create(VerCodeApi.class);
         friendsApi = retrofit.create(FriendsApi.class);
+        updateApi = retrofit.create(UpdateApi.class);
     }
 
     @Test
@@ -147,6 +150,12 @@ public class ExampleUnitTest {
         Response<Map<String, String>> response = friendsApi.friendMaking(
                 new FriendsManager(0, 13, 14, "", "",
                         null, null)).execute();
+        System.out.println(response.body());
+    }
+
+    @Test
+    public void getLatestApkTest() throws IOException {
+        Response<Map<String, Object>> response = updateApi.getLatestApkInfo().execute();
         System.out.println(response.body());
     }
 }
