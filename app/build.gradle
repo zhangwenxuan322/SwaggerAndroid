@@ -10,8 +10,8 @@ android {
         applicationId "com.friend.testapp"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 2
-        versionName "1.2"
+        versionCode 1
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
