@@ -9,6 +9,7 @@ import com.friend.swagger.api.UserApi;
 import com.friend.swagger.api.VerCodeApi;
 import com.friend.swagger.common.Constant;
 import com.friend.swagger.common.LocationUtil;
+import com.friend.swagger.common.PhoneUtil;
 import com.friend.swagger.common.SystemUtil;
 import com.friend.swagger.entity.FriendsManager;
 import com.friend.swagger.entity.UserProfile;
@@ -157,5 +158,10 @@ public class ExampleUnitTest {
     public void getLatestApkTest() throws IOException {
         Response<Map<String, Object>> response = updateApi.getLatestApkInfo().execute();
         System.out.println(response.body());
+    }
+
+    @Test
+    public void phoneUtilTest() throws IOException {
+        System.out.println(PhoneUtil.isMobileNO("18751967462"));
     }
 }
